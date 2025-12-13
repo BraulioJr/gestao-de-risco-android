@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Risk Management</string>
+
+    <!-- General -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+
+    <!-- Login Screen -->
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
+    <!-- Risk Details Screen -->
+    <string name="risk_name_hint">Risk Name</string>
+    <string name="description_hint">Description</string>
+    <string name="probability_hint">Probability</string>
+    <string name="impact_hint">Impact</string>
+    <string name="add_attachment">Add Attachment</string>
+    <string name="delete_risk">Delete Risk</string>
+
+    <!-- Dashboard -->
+    <string name="overview_title">Risk Overview</string>
+    <string name="total_risks_label">Total Identified Risks</string>
+    <string name="impact_distribution_label">Distribution by Impact</string>
+
+    <!-- Menus -->
+    <string name="logout">Logout</string>
+    <string name="search">Search</string>
+    <string name="dashboard_title">Dashboard</string>
+    <string name="list_title">List</string>
+
+    <!-- Dialogs and Messages -->
+    <string name="delete_confirmation_title">Confirm Deletion</string>
+    <string name="delete_confirmation_message">Are you sure you want to delete this risk? This action cannot be undone.</string>
+    <string name="permission_needed_title">Permission Needed</string>
+    <string name="permission_needed_message">To attach an image, the app needs permission to access your gallery.</string>
+    <string name="add_risk_content_description">Add new risk</string>
+</resources>

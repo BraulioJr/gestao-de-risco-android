@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "779286353368",
+    "project_id": "gestaoderiscoapp",
+    "storage_bucket": "gestaoderiscoapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779286353368:android:3a85d4aed009e4e5d78ead",
+        "android_client_info": {
+          "package_name": "com.example.project_gestoderisco"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-wEPYFTzsAOjLvi-Xsk9VOorfQVWLoa0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

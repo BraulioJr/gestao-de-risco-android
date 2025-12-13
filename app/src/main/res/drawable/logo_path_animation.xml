@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="1000"
+    android:propertyName="pathData"
+    android:valueType="pathType">
+
+    <!-- Estado inicial: um ponto no centro -->
+    <propertyValuesHolder android:valueFrom="M12,12L12,12z" />
+    <!-- Estado final: a forma completa do escudo -->
+    <propertyValuesHolder android:valueTo="M12,1L3,5v6c0,5.55 3.84,10.74 9,12 5.16,-1.26 9,-6.45 9,-12V5L12,1z" />
+
+</objectAnimator>

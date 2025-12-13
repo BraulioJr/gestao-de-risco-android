@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nome do App -->
+    <string name="app_name">Gestão de Risco</string>
+
+    <!-- Geral -->
+    <string name="email">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="save">Salvar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete">Excluir</string>
+
+    <!-- Tela de Login -->
+    <string name="login">Login</string>
+    <string name="register">Registrar</string>
+
+    <!-- Tela de Detalhes do Risco -->
+    <string name="risk_name_hint">Nome do Risco</string>
+    <string name="description_hint">Descrição</string>
+    <string name="probability_hint">Probabilidade</string>
+    <string name="impact_hint">Impacto</string>
+    <string name="add_attachment">Adicionar Anexo</string>
+    <string name="delete_risk">Excluir Risco</string>
+
+    <!-- Dashboard -->
+    <string name="overview_title">Visão Geral dos Riscos</string>
+    <string name="total_risks_label">Total de Riscos Identificados</string>
+    <string name="impact_distribution_label">Distribuição por Impacto</string>
+
+    <!-- Menus -->
+    <string name="logout">Sair</string>
+    <string name="search">Buscar</string>
+    <string name="dashboard_title">Dashboard</string>
+    <string name="list_title">Lista</string>
+
+    <!-- Diálogos e Mensagens -->
+    <string name="delete_confirmation_title">Confirmar Exclusão</string>
+    <string name="delete_confirmation_message">Você tem certeza de que deseja excluir este risco? Esta ação não pode ser desfeita.</string>
+    <string name="permission_needed_title">Permissão Necessária</string>
+    <string name="permission_needed_message">Para anexar uma imagem, o aplicativo precisa de permissão para acessar sua galeria.</string>
+    <string name="add_risk_content_description">Adicionar novo risco</string>
+
+    <!-- Tela de Configurações -->
+    <string name="settings_category_notifications">Notificações</string>
+    <string name="settings_notifications_title">Receber notificações</string>
+    <string name="settings_notifications_summary_on">Você receberá atualizações sobre riscos importantes.</string>
+    <string name="settings_notifications_summary_off">Você não receberá nenhuma notificação do aplicativo.</string>
+</resources>

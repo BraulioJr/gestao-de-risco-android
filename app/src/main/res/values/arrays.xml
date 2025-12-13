@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Opções visíveis para o usuário na preferência de tema -->
+    <string-array name="theme_entries">
+        <item>Claro</item>
+        <item>Escuro</item>
+        <item>Padrão do Sistema</item>
+    </string-array>
+
+    <!-- Valores internos correspondentes salvos nas SharedPreferences -->
+    <string-array name="theme_values">
+        <item>light</item>
+        <item>dark</item>
+        <item>system</item>
+    </string-array>
+</resources>
