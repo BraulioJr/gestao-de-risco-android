@@ -21,12 +21,6 @@ class OcorrenciaAdapter(
 
         private val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
 
-        init {
-            itemView.setOnClickListener {
-                onItemClicked(getItem(adapterPosition))
-            }
-        }
-
         fun bind(ocorrencia: Ocorrencia) {
             binding.apply {
                 tvLoja.text = ocorrencia.loja
@@ -50,7 +44,12 @@ class OcorrenciaAdapter(
             parent,
             false
         )
-        return OcorrenciaViewHolder(binding)
+        val viewHolder = OcorrenciaViewHolder(binding)
+        viewHolder.itemView.setOnClickListener {
+            val position = viewHolder.adapterPosition
+            if (position != RecyclerView.NO_POSITION) onItemClicked(getItem(position))
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: OcorrenciaViewHolder, position: Int) {

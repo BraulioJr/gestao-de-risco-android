@@ -1,0 +1,27 @@
+# Arquivos gerados pelo sistema de build
+.gradle
+build/
+
+# Arquivos de configuração do IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Arquivos locais
+local.properties
+
+# Arquivos de sistema (Mac e Windows)
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Arquivos de instalação e binários
+*.apk
+*.aab
+*.jar
+*.so
+*.exe
+*.dmg
