@@ -13,7 +13,10 @@ import com.example.project_gestoderisco.databinding.ItemRiskBinding
 import com.example.project_gestoderisco.model.Risk
 import com.google.android.material.chip.Chip
 
-class RiskAdapter(private val onItemClicked: (Risk) -> Unit) :
+class RiskAdapter(
+    private val onItemClicked: (Risk) -> Unit,
+    private val onItemLongClicked: (Risk) -> Unit
+) :
     ListAdapter<Risk, RiskAdapter.RiskViewHolder>(RiskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RiskViewHolder {
@@ -27,6 +30,10 @@ class RiskAdapter(private val onItemClicked: (Risk) -> Unit) :
         holder.itemView.setOnClickListener {
             onItemClicked(risk)
         }
+        holder.itemView.setOnLongClickListener {
+            onItemLongClicked(risk)
+            true // Indica que o evento foi consumido
+        }
     }
 
     class RiskViewHolder(private val binding: ItemRiskBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -38,18 +45,26 @@ class RiskAdapter(private val onItemClicked: (Risk) -> Unit) :
             binding.textViewRiskName.text = risk.name
             binding.textViewRiskDescription.text = risk.description
 
+            val context = binding.root.context
+
             // Configura o texto e a cor do nível de risco dinamicamente
-            val impactText = "IMPACTO ${risk.impact.uppercase()}"
+            val impactString = when (risk.impact) {
+                3 -> "ALTO"
+                2 -> "MÉDIO"
+                1 -> "BAIXO"
+                else -> "DESCONHECIDO"
+            }
+            val impactText = "IMPACTO $impactString"
             binding.textViewRiskLevel.text = impactText
 
-            val impactColor = when (risk.impact.lowercase()) {
-                "alto", "high" -> R.color.risk_high
-                "médio", "medium" -> R.color.risk_medium
-                "baixo", "low" -> R.color.risk_low
+            val impactColor = when (risk.impact) {
+                3 -> R.color.risk_high
+                2 -> R.color.risk_medium
+                1 -> R.color.risk_low
                 else -> R.color.grey_500 // Cor padrão
             }
             binding.textViewRiskLevel.backgroundTintList = ColorStateList.valueOf(
-                ContextCompat.getColor(binding.root.context, impactColor)
+                ContextCompat.getColor(context, impactColor)
             )
 
             // --- INÍCIO DO CÓDIGO PARA POPULAR O CHIPGROUP ---

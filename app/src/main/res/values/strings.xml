@@ -41,7 +41,7 @@
 
     <!-- Diálogos e Mensagens -->
     <string name="delete_confirmation_title">Confirmar Exclusão</string>
-    <string name="delete_confirmation_message">Você tem certeza de que deseja excluir este risco? Esta ação não pode ser desfeita.</string>
+    <string name="delete_confirmation_message">Você tem certeza de que deseja excluir o risco \"%1$s\"? Esta ação não pode ser desfeita.</string>
     <string name="permission_needed_title">Permissão Necessária</string>
     <string name="permission_needed_message">Para anexar uma imagem, o aplicativo precisa de permissão para acessar sua galeria.</string>
     <string name="add_risk_content_description">Adicionar novo risco</string>
