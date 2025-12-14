@@ -11,6 +11,7 @@ import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -41,11 +42,14 @@ class RiskViewModel : ViewModel() {
 
     // Mantém o critério de ordenação atual. O padrão é por data.
     private val _sortOrder = MutableStateFlow(SortOrder.BY_DATE_DESC)
+    
+    // Mantém o termo de busca atual.
+    private val _searchQuery = MutableStateFlow("")
 
     init {
-        // Observa mudanças no critério de ordenação e busca os dados novamente.
-        _sortOrder.onEach { order ->
-            fetchRisks(order)
+        // Combina os fluxos de ordenação e busca. A busca será acionada sempre que um deles mudar.
+        combine(_sortOrder, _searchQuery) { sortOrder, searchQuery ->
+            fetchRisks(sortOrder, searchQuery)
         }.launchIn(viewModelScope)
     }
 
@@ -54,7 +58,13 @@ class RiskViewModel : ViewModel() {
         _sortOrder.value = newOrder
     }
 
-    private fun fetchRisks(order: SortOrder) {
+    fun searchRisks(query: String) {
+        // Não precisa mostrar Loading para busca, pois é instantâneo no front-end (se os dados já estiverem carregados)
+        // ou será tratado pelo fetchRisks.
+        _searchQuery.value = query
+    }
+
+    private fun fetchRisks(order: SortOrder, query: String) {
         // Remove o listener anterior para evitar múltiplas buscas simultâneas.
         risksListener?.remove()
 
@@ -64,16 +74,28 @@ class RiskViewModel : ViewModel() {
             return
         }
 
-        // Ouve as mudanças na coleção 'risks' em tempo real, com ordenação dinâmica.
-        risksListener = db.collection("risks")
-            .whereEqualTo("ownerId", userId) // Filtra para mostrar apenas os riscos do usuário logado.
+        var firestoreQuery: Query = db.collection("risks").whereEqualTo("ownerId", userId)
+
+        // A busca por texto no Firestore requer um índice. Uma abordagem mais simples
+        // para começar é filtrar no lado do cliente após receber os dados.
+        // Para uma busca real no backend, seria necessário um serviço como o Algolia ou um índice composto no Firestore.
+
+        firestoreQuery = firestoreQuery
             .orderBy(order.field, order.direction)
+
+        risksListener = firestoreQuery
             .addSnapshotListener { snapshots, error ->
                 if (error != null) {
                     _uiState.value = RiskListUiState.Error(error.message ?: "Erro ao buscar os dados.")
                     return@addSnapshotListener
                 }
-                _uiState.value = RiskListUiState.Success(snapshots?.toObjects<Risk>() ?: emptyList())
+                val allRisks = snapshots?.toObjects<Risk>() ?: emptyList()
+                val filteredRisks = if (query.isNotBlank()) {
+                    allRisks.filter { it.name.contains(query, ignoreCase = true) }
+                } else {
+                    allRisks
+                }
+                _uiState.value = RiskListUiState.Success(filteredRisks)
             }
     }
 

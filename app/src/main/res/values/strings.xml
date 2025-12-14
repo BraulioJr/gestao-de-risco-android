@@ -25,6 +25,7 @@
     <string name="probability_hint">Probabilidade</string>
     <string name="impact_hint">Impacto</string>
     <string name="add_attachment">Adicionar Anexo</string>
+    <string name="attachment_preview">Pré-visualização do anexo</string>
     <string name="delete_risk">Excluir Risco</string>
 
     <!-- Dashboard -->
@@ -51,4 +52,15 @@
     <string name="settings_notifications_title">Receber notificações</string>
     <string name="settings_notifications_summary_on">Você receberá atualizações sobre riscos importantes.</string>
     <string name="settings_notifications_summary_off">Você não receberá nenhuma notificação do aplicativo.</string>
+
+    <!-- Notificações -->
+    <string name="channel_name">Notificações de Risco</string>
+    <string name="channel_description">Canal para notificações sobre atualizações de riscos</string>
+
+    <!-- Arrays -->
+    <string-array name="risk_levels">
+        <item>Baixa</item>
+        <item>Média</item>
+        <item>Alta</item>
+    </string-array>
 </resources>

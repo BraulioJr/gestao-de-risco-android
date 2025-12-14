@@ -1,110 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.OcorrenciaDetailActivity">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarDetail"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/risk_details_title" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Campo para Nome do Risco -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textFieldRiskName"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/risk_name_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Campo para Descrição -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textFieldDescription"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/description_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:minLines="3" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Menu Dropdown para Probabilidade -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/menuProbability"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/probability_hint">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Menu Dropdown para Impacto -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/menuImpact"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/impact_hint">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Seção de Anexo -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonAddAttachment"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/add_attachment"
+                app:icon="@drawable/ic_add_a_photo" />
+
+            <ImageView
+                android:id="@+id/imageViewAttachment"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/attachment_preview"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                tools:src="@tools:sample/backgrounds/scenic"
+                tools:visibility="visible" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ProgressBar para feedback de carregamento -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/iv_detail_evidencia"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:visibility="gone"
-            android:layout_marginBottom="16dp"
-            tools:src="@tools:sample/backgrounds/scenic"
-            tools:visibility="visible"
-            android:contentDescription="Evidência da ocorrência" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Loja"
-            android:textAppearance="?attr/textAppearanceLabelSmall" />
-
-        <TextView
-            android:id="@+id/tv_detail_loja"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
-            tools:text="Loja Centro" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Data e Hora"
-            android:textAppearance="?attr/textAppearanceLabelSmall" />
-
-        <TextView
-            android:id="@+id/tv_detail_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
-            tools:text="15/05/2024 14:30" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Valor Recuperado"
-            android:textAppearance="?attr/textAppearanceLabelSmall" />
-
-        <TextView
-            android:id="@+id/tv_detail_valor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
-            tools:text="R$ 150,75" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Produtos"
-            android:textAppearance="?attr/textAppearanceLabelSmall" />
-
-        <TextView
-            android:id="@+id/tv_detail_produtos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
-            tools:text="Carnes, Whisky" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ação Realizada"
-            android:textAppearance="?attr/textAppearanceLabelSmall" />
-
-        <TextView
-            android:id="@+id/tv_detail_acao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
-            tools:text="Abordagem" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Relato"
-            android:textAppearance="?attr/textAppearanceLabelSmall" />
-
-        <TextView
-            android:id="@+id/tv_detail_relato"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
-            tools:text="O cliente foi abordado na saída da loja após passar pelo caixa sem registrar os produtos." />
-
-    </LinearLayout>
-</ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

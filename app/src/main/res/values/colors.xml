@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Cores base do tema (geralmente do Material Design) -->
-    <color name="purple_200">#BB86FC</color>
-    <color name="purple_500">#6200EE</color>
-    <color name="purple_700">#3700B3</color>
-    <color name="teal_200">#03DAC5</color>
-    <color name="teal_700">#018786</color>
-    <color name="black">#000000</color>
-    <color name="white">#FFFFFF</color>
-
-    <!-- Cor para o fundo do tema escuro -->
-    <color name="dark_grey">#121212</color>
-
-    <!-- Cores para Níveis de Risco -->
-    <color name="risk_high">#D32F2F</color>
-    <color name="risk_medium">#FFA000</color>
-    <color name="risk_low">#388E3C</color>
+    <color name="risk_level_high">#D32F2F</color>
+    <!-- Adicione outras cores do seu aplicativo aqui -->
 </resources>

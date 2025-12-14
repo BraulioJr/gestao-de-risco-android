@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Força todo o tráfego de rede a usar HTTPS, bloqueando conexões de texto claro (HTTP). -->
+    <base-config cleartextTrafficPermitted="false">
+        <!-- Confia nos certificados de sistema padrão. -->
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>
