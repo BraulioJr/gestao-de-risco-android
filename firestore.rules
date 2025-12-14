@@ -2,16 +2,10 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Regras para a coleção 'risks'
-    match /risks/{riskId} {
-      // Um usuário pode ler um risco se ele for o dono.
-      allow read: if request.auth.uid == resource.data.ownerId;
-      
-      // Um usuário pode criar um risco se o 'ownerId' do novo documento for o seu próprio ID.
-      allow create: if request.auth.uid == request.resource.data.ownerId;
-      
-      // Um usuário pode atualizar ou excluir um risco se ele for o dono.
-      allow update, delete: if request.auth.uid == resource.data.ownerId;
+    // Permite que um usuário acesse apenas sua própria subcoleção de riscos.
+    // A estrutura de dados esperada é: /users/{userId}/risks/{riskId}
+    match /users/{userId}/risks/{riskId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
     }
   }
 }
