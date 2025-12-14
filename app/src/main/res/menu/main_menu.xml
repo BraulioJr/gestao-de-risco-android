@@ -3,18 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_ocorrencias_salvas"
-        android:icon="@drawable/ic_history"
-        android:title="Ocorrências Salvas"
-        app:showAsAction="ifRoom" />
+        android:id="@+id/action_dashboard"
+        android:title="@string/dashboard_title"
+        app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_settings"
-        android:title="Configurações"
+        android:id="@+id/action_sort_by_name"
+        android:title="Ordenar por nome"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_sort_by_date"
+        android:title="Ordenar por data"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_sort_by_id"
+        android:title="Ordenar por ID"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_logout"
-        android:title="Sair"
+        android:title="@string/logout"
         app:showAsAction="never" />
 </menu>

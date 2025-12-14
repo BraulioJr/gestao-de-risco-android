@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Cor de fundo. Você pode criar uma cor em colors.xml ou usar um valor hexadecimal. -->
+    <solid android:color="#D32F2F" /> <!-- Um tom de vermelho para "risco alto" -->
+
+    <!-- Cantos arredondados -->
+    <corners android:radius="16dp" />
+</shape>

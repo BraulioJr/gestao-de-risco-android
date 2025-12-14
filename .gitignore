@@ -21,3 +21,7 @@
 
 # Ignorar projeto Flutter aninhado
 /meu_app_flutter/
+
+# Dependências do Node.js
+/functions/node_modules/
+node_modules/
