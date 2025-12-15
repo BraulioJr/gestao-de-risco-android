@@ -77,6 +77,10 @@ class RankingAdapter : ListAdapter<RankingFiscal, RankingAdapter.RankingViewHold
         }
     }
 
+    /**
+     * Limpa a animação quando a view é reciclada.
+     * Isso garante que a animação possa ser executada novamente se o item reaparecer na tela.
+     */
     override fun onViewDetachedFromWindow(holder: RankingViewHolder) {
         super.onViewDetachedFromWindow(holder)
         holder.itemView.clearAnimation()

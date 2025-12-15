@@ -16,10 +16,11 @@ class OcorrenciaAdapter(
     private val onItemClicked: (Ocorrencia) -> Unit
 ) : ListAdapter<Ocorrencia, OcorrenciaAdapter.OcorrenciaViewHolder>(OcorrenciaDiffCallback()) {
 
+    // Mova o SimpleDateFormat para fora do ViewHolder para ser reutilizado
+    private val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+
     inner class OcorrenciaViewHolder(private val binding: ItemOcorrenciaBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-        private val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
 
         fun bind(ocorrencia: Ocorrencia) {
             binding.apply {

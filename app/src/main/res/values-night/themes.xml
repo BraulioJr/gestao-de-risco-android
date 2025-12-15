@@ -18,6 +18,8 @@
 
         <!-- Atributos de Cores Customizadas (Modo Escuro) -->
         <item name="riskLevelHighColor">@color/risk_level_high</item>
+        <item name="riskLevelMediumColor">@color/risk_level_medium</item>
+        <item name="riskLevelLowColor">@color/risk_level_low</item>
     </style>
 
     <!-- Sobrescreve o tema da Splash Screen para o modo noturno -->

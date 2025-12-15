@@ -31,14 +31,14 @@ abstract class AppDatabase : RoomDatabase() {
         private var INSTANCE: AppDatabase? = null
 
         fun getDatabase(context: Context): AppDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
+            return INSTANCE ?: synchronized(this) { // Retorna a instância se já existir
+                val instance = Room.databaseBuilder( // Cria o banco de dados se não existir
                     context.applicationContext,
                     AppDatabase::class.java,
                     "gestao_risco_database"
                 ).build()
-                INSTANCE = instance
-                instance
+                INSTANCE = instance // Atribui a nova instância
+                instance // Retorna a nova instância
             }
         }
     }

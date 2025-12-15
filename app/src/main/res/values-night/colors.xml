@@ -2,5 +2,6 @@
 <resources>
     <!-- Cores para o modo escuro -->
     <color name="risk_level_high">#EF5350</color> <!-- Tom de vermelho mais claro para o modo escuro -->
+    <color name="dark_grey">#212121</color> <!-- Cor de fundo para a splash screen no modo escuro -->
 
 </resources>
