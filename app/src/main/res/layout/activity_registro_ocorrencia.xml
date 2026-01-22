@@ -21,7 +21,7 @@
             android:id="@+id/tv_titulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Novo Registro de Recuperação"
+            android:text="@string/occurrence_registration_title"
             android:textColor="?attr/colorPrimary"
             android:textAppearance="?attr/textAppearanceHeadline5"
             android:layout_marginBottom="16dp"/>
@@ -40,16 +40,43 @@
                 android:padding="16dp">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_numero_loja"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/store_number_hint">
+ 
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_numero_loja"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ProgressBar
+                    android:id="@+id/progress_lojas"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="-40dp"
+                    android:layout_marginEnd="16dp"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_loja"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Loja/Unidade">
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/store_unit_hint">
 
                     <AutoCompleteTextView
                         android:id="@+id/actv_loja"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/store_unit_description"
                         android:inputType="none" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Análise (DVR/Câmera/Horário)">
+                    android:hint="@string/analysis_hint">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_monitoramento"
@@ -82,18 +109,18 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_produtos"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Tipos de Produto (Ex: Carne, Whisky)">
+                    android:text="@string/product_category_label"
+                    android:textAppearance="?attr/textAppearanceBodyMedium" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_produtos"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </com.google.android.material.textfield.TextInputLayout>
+                <Spinner
+                    android:id="@+id/spn_categoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:spinnerMode="dropdown" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_valor"
@@ -101,7 +128,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Valor Estimado Recuperado (R$)"
+                    android:hint="@string/estimated_value_hint"
                     app:startIconDrawable="@drawable/ic_attach_money">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -128,30 +155,49 @@
 
                 <TextView
                     android:id="@+id/tv_acao"
+                    android:labelFor="@+id/rg_acao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ação Realizada"
+                    android:text="@string/action_taken_label"
                     android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                 <RadioGroup
                     android:id="@+id/rg_acao"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/rb_abordagem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Abordagem" />
+                        android:text="@string/action_approach" />
 
                     <RadioButton
                         android:id="@+id/rb_monitoramento"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="Monitoramento" />
+                        android:text="@string/action_monitoring" />
                 </RadioGroup>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_fundada_suspeita"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="Fundada Suspeita (Art. 244 CPP)"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@android:drawable/ic_menu_help"
+                    app:endIconContentDescription="@string/help_fundada_suspeita_desc">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_fundada_suspeita"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_relato"
@@ -159,7 +205,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Breve Relato (Detalhes)">
+                    android:hint="@string/brief_report_hint">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_relato"
@@ -192,8 +238,8 @@
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@tools:sample/backgrounds/scenic"
-                    android:contentDescription="Pré-visualização da evidência anexada" />
+                    android:contentDescription="@string/evidence_preview_description"
+                    tools:src="@tools:sample/backgrounds/scenic" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -204,15 +250,16 @@
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Anexar Evidência"
-            app:icon="@drawable/ic_add_a_photo" />
+            android:text="@string/attach_evidence_button"
+            app:icon="@drawable/ic_add_a_photo"
+            app:iconContentDescription="@null"/>
 
         <Button
             android:id="@+id/btn_registrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Registrar Ocorrência" />
+            android:text="@string/register_occurrence_button" />
 
     </LinearLayout>
     </ScrollView>
@@ -223,7 +270,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">
 

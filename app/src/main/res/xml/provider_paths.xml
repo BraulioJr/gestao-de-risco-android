@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Mapeia o diretório getExternalFilesDir() -->
+    <external-files-path name="risk_reports" path="." />
+    <!-- Mapeia diretórios de cache para compartilhamento seguro -->
+    <cache-path name="cache_exports" path="exports" />
+    <cache-path name="cache_images" path="images" />
+</paths>

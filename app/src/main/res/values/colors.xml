@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="risk_level_high">#D32F2F</color>
-    <color name="risk_level_medium">#FFA000</color> <!-- Amber 700 -->
-    <color name="risk_level_low">#388E3C</color>  <!-- Green 700 -->
-    <!-- Adicione outras cores do seu aplicativo aqui -->
+    <!-- Cores base para o tema -->
+    <color name="md_theme_primary">#006d3a</color>
+    <color name="md_theme_onPrimary">#ffffff</color>
+    <color name="md_theme_primaryContainer">#96f8b3</color>
+    <color name="md_theme_onPrimaryContainer">#00210d</color>
+    <color name="md_theme_secondary">#506352</color>
+    <color name="md_theme_onSecondary">#ffffff</color>
+    <color name="md_theme_secondaryContainer">#d3e8d3</color>
+    <color name="md_theme_onSecondaryContainer">#0d1f12</color>
+    <color name="md_theme_error">#ba1a1a</color>
+    <color name="md_theme_onError">#ffffff</color>
+    <color name="md_theme_background">#fcfdf7</color>
+    <color name="md_theme_onBackground">#1a1c1a</color>
+    <color name="md_theme_surface">#fcfdf7</color>
+    <color name="md_theme_onSurface">#1a1c1a</color>
+    <color name="md_theme_surfaceVariant">#dee5da</color>
+    <color name="md_theme_onSurfaceVariant">#424942</color>
+    <color name="md_theme_outline">#727971</color>
+    <color name="md_theme_inverseSurface">#2f312e</color>
+    <color name="md_theme_inverseOnSurface">#f0f1ec</color>
+
+    <!-- Cores de Risco -->
+    <color name="risk_level_high">#B3261E</color>
+    <color name="risk_level_medium">#E65100</color>
+    <color name="risk_level_low">#1B5E20</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gold">#FFD700</color>
 </resources>

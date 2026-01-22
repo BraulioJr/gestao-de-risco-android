@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="8dp">
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,47 +15,59 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/tv_loja"
+            android:id="@+id/tvLoja"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceTitleMedium"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/iv_sync_status"
+            app:layout_constraintEnd_toStartOf="@+id/ivSyncStatus"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Loja Exemplo" />
+            tools:text="Loja 103 - Centro" />
 
         <TextView
-            android:id="@+id/tv_data"
-            android:layout_width="0dp"
+            android:id="@+id/tvData"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textAppearance="?attr/textAppearanceBodySmall"
             android:textColor="?android:attr/textColorSecondary"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_loja"
-            tools:text="15/05/2024 14:30" />
+            app:layout_constraintTop_toBottomOf="@+id/tvLoja"
+            tools:text="25/12/2025 14:30" />
 
         <TextView
-            android:id="@+id/tv_valor"
+            android:id="@+id/tvValor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_data"
-            tools:text="R$ 150,75" />
+            app:layout_constraintTop_toBottomOf="@+id/tvData"
+            tools:text="R$ 150,00" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceLabelSmall"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvValor"
+            tools:text="Em Investigação" />
 
         <ImageView
-            android:id="@+id/iv_sync_status"
+            android:id="@+id/ivSyncStatus"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:contentDescription="Status de Sincronização"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="?attr/colorPrimary"
             tools:src="@drawable/ic_cloud_done"
-            android:contentDescription="Status da Sincronização" />
+            app:tint="?attr/colorOnSurfaceVariant" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

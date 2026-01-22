@@ -23,6 +23,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project_gestoderisco"
         tools:replace="android:allowBackup">
+
+        <provider
+    android:name="androidx.core.content.FileProvider"
+    android:authorities="${applicationId}.provider"
+    android:exported="false"
+    android:grantUriPermissions="true">
+    <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/provider_paths" />
+</provider>
+
         <activity
             android:name=".view.LoginActivity"
             android:exported="true"
@@ -47,15 +58,21 @@
         <activity
             android:name=".view.AddRiskActivity"
             android:exported="false" />
-        <!-- <activity
+        <activity
             android:name=".view.SettingsActivity"
             android:exported="false"
             android:label="Configurações"
-            android:parentActivityName=".MainActivity" /> -->
-        <!-- <activity
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".RegistroOcorrenciaActivity"
             android:exported="false"
-            android:label="Registrar Ocorrência" /> -->
+            android:label="Registrar Ocorrência" />
+
+        <activity
+            android:name=".MapActivity"
+            android:exported="false"
+            android:label="@string/map_activity_title"
+            android:parentActivityName=".MainActivity" />
     </application>
     
     <service

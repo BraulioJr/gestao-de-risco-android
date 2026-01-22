@@ -21,6 +21,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -59,6 +60,7 @@ dependencies {
     implementation(libs.lifecycle.livedata.ktx)
 
     implementation(libs.hilt.android)
+    implementation(libs.mpandroidchart)
     ksp(libs.hilt.compiler)
 
     implementation(libs.preference.ktx)
@@ -72,18 +74,19 @@ dependencies {
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.messaging.ktx)
     implementation(libs.firebase.storage.ktx)
+    implementation(libs.firebase.functions.ktx)
 
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
-    implementation(libs.mpandroidchart)
 
     testImplementation(libs.junit)
     testImplementation(libs.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk)
     testImplementation(libs.turbine)
+    
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)
-}
+ }

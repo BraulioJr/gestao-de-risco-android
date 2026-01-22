@@ -1,12 +1,11 @@
 package com.example.gestaoderisco.view
 
 import android.app.Application
-import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.gestaoderisco.data.local.Ocorrencia
+import com.example.gestaoderisco.models.Ocorrencia
 import com.example.gestaoderisco.databinding.ActivityOcorrenciaDetailBinding
 import com.example.gestaoderisco.viewmodel.OcorrenciaDetailViewModel
 import com.example.gestaoderisco.viewmodel.OcorrenciaDetailViewModelFactory

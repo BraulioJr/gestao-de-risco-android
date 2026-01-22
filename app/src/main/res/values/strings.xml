@@ -26,6 +26,7 @@
     <string name="impact_hint">Impacto</string>
     <string name="add_attachment">Adicionar Anexo</string>
     <string name="attachment_preview">Pré-visualização do anexo</string>
+    <string name="risk_level_label">Nível de Risco</string>
     <string name="delete_risk">Excluir Risco</string>
 
     <!-- Dashboard -->
@@ -56,11 +57,219 @@
     <!-- Notificações -->
     <string name="channel_name">Notificações de Risco</string>
     <string name="channel_description">Canal para notificações sobre atualizações de riscos</string>
+    <string name="channel_high_value_name">Alertas de Alto Valor</string>
+    <string name="channel_high_value_description">Notificações urgentes sobre perdas de alto valor financeiro.</string>
 
-    <!-- Arrays -->
-    <string-array name="risk_levels">
-        <item>Baixa</item>
-        <item>Média</item>
-        <item>Alta</item>
+    <!-- Tela de Registro de Ocorrência -->
+    <string name="occurrence_registration_title">Novo Registro de Recuperação</string>
+    <string name="store_number_hint">Número da Loja</string>
+    <string name="store_unit_hint">Loja/Unidade</string>
+    <string name="store_unit_description">Selecione a loja ou unidade onde a ocorrência foi registrada.</string>
+    <string name="analysis_hint">Análise (DVR/Câmera/Horário)</string>
+    <string name="product_types_hint">Tipos de Produto (Ex: Carne, Whisky)</string>
+    <string name="estimated_value_hint">Valor Estimado Recuperado (R$)</string>
+    <string name="action_taken_label">Ação Realizada</string>
+    <string name="action_approach">Abordagem</string>
+    <string name="action_monitoring">Monitoramento</string>
+    <string name="brief_report_hint">Breve Relato (Detalhes)</string>
+    <string name="attach_evidence_button">Anexar Evidência</string>
+    <string name="register_occurrence_button">Registrar Ocorrência</string>
+    <string name="evidence_preview_description">Pré-visualização da evidência anexada</string>
+    <string name="search_by_store_hint">Buscar por loja</string>
+    <string name="product_category_label">Categoria do Produto</string>
+    <string name="error_select_category">Por favor, selecione uma categoria válida.</string>
+    <string name="export_csv">Exportar CSV</string>
+    <string name="export_pdf">Exportar PDF</string>
+    <string name="export_success">Dados exportados com sucesso!</string>
+    <string name="export_error">Erro ao exportar dados.</string>
+    <string name="pdf_page_format">Página %1$d</string>
+    <string name="pdf_evidence_title">Anexo Fotográfico</string>
+    <string name="share_report_title">Compartilhar Relatório</string>
+    <string name="view_dashboard">Ver Gráficos</string>
+
+    <!-- Identidade de Gênero -->
+    <string name="gender_identity_label">Identidade de Gênero</string>
+    <string name="gender_man">Homem</string>
+    <string name="gender_woman">Mulher</string>
+    <string name="gender_both">Ambos</string>
+    <string name="gender_non_binary">Não-binário</string>
+    <string name="gender_other">Outros</string>
+    <string name="error_select_gender">Por favor, selecione a identidade de gênero.</string>
+
+    <!-- Sexo Biológico -->
+    <string name="biological_sex_label">Sexo Biológico</string>
+    <string name="sex_male">Masculino</string>
+    <string name="sex_female">Feminino</string>
+    <string name="sex_intersex">Intersexo</string>
+    <string name="error_select_sex">Por favor, selecione o sexo biológico.</string>
+
+    <!-- Cor ou Raça -->
+    <string name="race_color_label">Cor ou Raça</string>
+    <string name="race_white">Branca</string>
+    <string name="race_black">Preta</string>
+    <string name="race_brown">Parda</string>
+    <string name="race_yellow">Amarela</string>
+    <string name="race_indigenous">Indígena</string>
+    <string name="age_group_label">Faixa Etária Estimada</string>
+    <string name="age_adolescent">Adolescente (12 a 17 anos)</string>
+    <string name="age_adult">Adulto (18 a 59 anos)</string>
+    <string name="age_elderly">Idoso (60 anos ou mais)</string>
+
+    <!-- Perfil do Furtante -->
+    <string name="shoplifter_type_label">Perfil do Furtante</string>
+    <string name="type_opportunist">Ocasional / Oportunista</string>
+    <string name="type_professional">Profissional / Habitual</string>
+    <string name="type_breach_trust">Abuso de Confiança (Interno/Prestador)</string>
+    <string name="help_shoplifter_type_title">Tipos de Furtantes</string>
+    <string name="help_shoplifter_type_message"><b>Furtante Ocasional/Oportunista:</b> Geralmente um cliente regular que age por impulso ou oportunidade, sem planejamento prévio.\n\n<b>Furtante Profissional/Habitual:</b> Encara o furto como trabalho/profissão. Planeja ações e busca itens de alto valor para revenda.\n\n<b>Abuso de Confiança:</b> Funcionário ou prestador de serviço que se aproveita do acesso facilitado para subtrair bens.</string>
+    <string name="help_shoplifter_type_desc">Ajuda sobre perfis de furtantes</string>
+
+    <!-- Atitudes Suspeitas -->
+    <string name="suspicious_attitude_label">Atitude Suspeita Principal</string>
+    <string name="attitude_nervous">Nervosismo / Olhar constante</string>
+    <string name="attitude_bags">Uso de bolsas/sacolas preparadas</string>
+    <string name="attitude_hiding">Ocultação de produtos (ex: nas vestes)</string>
+    <string name="attitude_low_traffic">Permanência em áreas isoladas</string>
+    <string name="attitude_unusual">Manuseio incomum de produtos</string>
+
+    <!-- Modus Operandi -->
+    <string name="modus_operandi_label">Modus Operandi (Múltipla escolha)</string>
+    <string name="mo_lined_bag">Sacola Revestida (Alumínio)</string>
+    <string name="mo_detacher">Uso de Desacoplador/Imã</string>
+    <string name="mo_label_switching">Troca de Etiquetas/Preços</string>
+    <string name="mo_body_concealment">Ocultação no Corpo</string>
+    <string name="mo_bag_concealment">Ocultação em Bolsa/Mochila</string>
+
+    <!-- GPS -->
+    <string name="gps_location_label">Localização (GPS)</string>
+    <string name="gps_status_waiting">Obtendo coordenadas...</string>
+    <string name="evidence_label">Evidências (Fotos)</string>
+
+    <!-- Ajuda Fundada Suspeita -->
+    <string name="help_fundada_suspeita_title">Fundada Suspeita (Art. 244 CPP)</string>
+    <string name="help_fundada_suspeita_message">"A busca pessoal independerá de mandado, no caso de prisão ou quando houver fundada suspeita de que a pessoa esteja na posse de arma proibida ou de objetos ou papéis que constituam corpo de delito, ou quando a medida for determinada no curso de busca domiciliar."\n\nDescreva os fatos objetivos que motivaram a abordagem.</string>
+    <string name="help_fundada_suspeita_desc">Ajuda sobre Fundada Suspeita</string>
+
+    <!-- Configuração de E-mail -->
+    <string name="configure_email_title">E-mail do Coordenador</string>
+    <string name="configure_email_message">Defina o e-mail padrão para envio dos relatórios CSV.</string>
+    <string name="configure_email_hint">exemplo@empresa.com</string>
+    <string name="configure_report_title">Configurar Relatório Automático</string>
+    <string name="configure_report_day_label">Dia da Semana:</string>
+    <string name="configure_report_time_label">Horário:</string>
+    <string name="configure_report_saved">Configurações salvas e agendamento atualizado!</string>
+    
+    <!-- Configurações Gerais -->
+    <string name="store_type_label">Bandeira / Tipo de Loja</string>
+    <string-array name="store_types_array">
+        <item>Bahamas Mix</item>
+        <item>Bahamas Tradicional</item>
+        <item>Bahamas Express</item>
+        <item>Empório Bahamas</item>
+        <item>Espaço Vest Casa</item>
     </string-array>
+
+    <string name="settings_activity_title">Configurações</string>
+    <string name="pref_enable_notifications">Habilitar Notificações</string>
+    <string name="pref_high_value_only">Apenas Alertas de Alto Valor</string>
+
+    <!-- Biometria -->
+    <string name="biometric_title">Autenticação Necessária</string>
+    <string name="biometric_subtitle">Toque no sensor para continuar</string>
+    <string name="biometric_negative_button">Cancelar</string>
+    <string name="biometric_error_hw_unavailable">Hardware biométrico indisponível.</string>
+    <string name="biometric_error_none_enrolled">Nenhuma biometria cadastrada.</string>
+
+    <!-- Filtros do Dashboard -->
+    <string-array name="dashboard_periods">
+        <item>Todos</item>
+        <item>Este Mês</item>
+        <item>Mês Passado</item>
+        <item>Este Ano</item>
+        <item>Personalizado</item>
+    </string-array>
+
+    <!-- Categorias de Produtos (Padronização para Análise de Dados) -->
+    <string-array name="product_categories">
+        <item>Selecione uma categoria</item>
+        <item>Hortifrúti</item>
+        <item>Açougue, Aves e Peixaria</item>
+        <item>Mercearia (Seca e Líquida)</item>
+        <item>Frios e Laticínios</item>
+        <item>Bebidas Alcoólicas (Alto Risco)</item>
+        <item>Eletrônicos e Eletroportáteis</item>
+        <item>Padaria e Confeitaria</item>
+        <item>Higiene e Beleza</item>
+        <item>Limpeza</item>
+        <item>Congelados</item>
+        <item>Utilidades Domésticas/Bazar</item>
+        <item>Outros</item>
+    </string-array>
+
+    <!-- Dias da Semana para Configuração -->
+    <string-array name="days_of_week">
+        <item>Domingo</item>
+        <item>Segunda-feira</item>
+        <item>Terça-feira</item>
+        <item>Quarta-feira</item>
+        <item>Quinta-feira</item>
+        <item>Sexta-feira</item>
+        <item>Sábado</item>
+    </string-array>
+
+    <!-- Tutorial / Showcase -->
+    <string name="tutorial_welcome_title">Bem-vindo ao Gestão de Risco</string>
+    <string name="tutorial_welcome_desc">Este é o seu Dashboard. Aqui você acompanha os indicadores de perdas e riscos em tempo real.</string>
+    <string name="tutorial_config_title">Configurações</string>
+    <string name="tutorial_config_desc">Defina seu e-mail, notificações e horários de relatórios automáticos aqui.</string>
+    <string name="tutorial_export_title">Exportar Relatórios</string>
+    <string name="tutorial_export_desc">Gere arquivos CSV dos dados exibidos para compartilhar ou analisar em planilhas.</string>
+    <string name="tutorial_filter_title">Filtros de Período</string>
+    <string name="tutorial_filter_desc">Altere o período de visualização dos gráficos (Mês, Ano ou Personalizado).</string>
+    <string name="tutorial_got_it">Entendi</string>
+    <string name="financial_analysis_title">Prejuízo Financeiro por Loja</string>
+    <string name="financial_evolution_title">Evolução do Prejuízo Diário</string>
+    <string name="scatter_chart_title">Correlação Horário x Valor (Risco)</string>
+    <string name="criminal_spot_title">Mancha Criminal (Horário x Categoria)</string>
+    <string name="risk_prediction_title">Previsão de Risco (IA)</string>
+    <string name="response_time_chart_title">Média de Tempo de Resposta (min)</string>
+    <string name="limit_alert_label">Limite de Alerta (30 min)</string>
+    <string name="risk_prediction_desc">Probabilidade de incidente para o momento atual:</string>
+    <string name="risk_prediction_fallback">Modo Estatístico (Modelo IA não encontrado)</string>
+
+    <!-- Tela de Detalhes da Loja -->
+    <string name="store_details_title">Detalhes da Loja</string>
+    <string name="store_history_title">Histórico de Ocorrências</string>
+    <string name="change_status_title">Alterar Status da Ocorrência</string>
+
+    <!-- Status da Ocorrência -->
+    <string-array name="occurrence_status">
+        <item>Aberto</item>
+        <item>Em Investigação</item>
+        <item>Resolvido</item>
+    </string-array>
+
+    <!-- Tela do Mapa Geográfico -->
+    <string name="map_activity_title">Mapa de Risco Geográfico</string>
+    <string name="view_map">Ver Mapa de Risco</string>
+
+    <!-- Cabeçalhos do Relatório CSV -->
+    <string name="csv_header_date">Data/Hora</string>
+    <string name="csv_header_store">Loja</string>
+    <string name="csv_header_category">Categoria</string>
+    <string name="csv_header_is_high_value">Alto Valor Financeiro?</string>
+    <string name="csv_header_value">Valor Estimado (R$)</string>
+    <string name="csv_header_description">Descrição</string>
+    <string name="csv_header_response_time">Tempo de Resposta</string>
+    <string name="shoplifter_chart_title">Distribuição por Perfil de Furtante</string>
+    <string name="evolution_chart_title">Evolução Diária de Furtos</string>
+    <string name="heatmap_label">Visualizar Mapa de Calor</string>
+    <string name="my_location_desc">Minha Localização</string>
+    <string name="location_permission_denied">Permissão de localização necessária.</string>
+
+    <!-- Relatório ABNT -->
+    <string name="report_institution_name">UNIVERSIDADE CORPORATIVA / GESTÃO DE RISCO</string>
+    <string name="report_title">RELATÓRIO TÉCNICO DE OCORRÊNCIAS</string>
+    <string name="report_subtitle">Análise de Riscos e Perdas</string>
+    <string name="report_city_year">Juiz de Fora, 2024</string>
 </resources>

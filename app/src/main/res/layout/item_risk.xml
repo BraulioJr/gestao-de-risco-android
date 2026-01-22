@@ -19,11 +19,46 @@
             android:id="@+id/textViewRiskName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:textAppearance="?attr/textAppearanceTitleMedium"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/badgeHighValue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Vazamento de Dados de Clientes" />
+
+        <LinearLayout
+            android:id="@+id/badgeHighValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_risk_high_value_gold"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="2dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewRiskName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewRiskName"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/iconHighValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:contentDescription="@null"
+                app:srcCompat="@drawable/ic_attach_money"
+                app:tint="?android:attr/textColorPrimaryInverse" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ALTO VALOR"
+                android:textAppearance="?attr/textAppearanceLabelSmall"
+                android:textColor="?android:attr/textColorPrimaryInverse" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textViewRiskDescription"
@@ -31,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="4"
             android:textAppearance="?attr/textAppearanceBodyMedium"
             android:textColor="?attr/colorOnSurfaceVariant"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,14 +78,15 @@
             android:id="@+id/textViewRiskLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/risk_level_label"
             android:layout_marginTop="8dp"
-            android:background="?attr/riskLevelHighColor"
+            android:background="@color/risk_level_high"
             android:paddingStart="8dp"
             android:paddingTop="2dp"
             android:paddingEnd="8dp"
             android:paddingBottom="2dp"
             android:textAppearance="?attr/textAppearanceLabelSmall"
-            android:textColor="?attr/colorOnPrimaryContainer"
+            android:textColor="?android:attr/textColorPrimaryInverse"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewRiskDescription"
             tools:text="IMPACTO ALTO" />

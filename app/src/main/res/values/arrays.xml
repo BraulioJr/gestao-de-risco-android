@@ -13,4 +13,11 @@
         <item>dark</item>
         <item>system</item>
     </string-array>
+
+    <!-- Níveis de Risco -->
+    <string-array name="risk_levels">
+        <item>Baixa</item>
+        <item>Média</item>
+        <item>Alta</item>
+    </string-array>
 </resources>

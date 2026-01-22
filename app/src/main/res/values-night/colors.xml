@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Cores para o modo escuro -->
-    <color name="risk_level_high">#EF5350</color> <!-- Tom de vermelho mais claro para o modo escuro -->
-    <color name="dark_grey">#212121</color> <!-- Cor de fundo para a splash screen no modo escuro -->
+    <!-- Cores base para o tema (Copiadas do arquivo colors.xml da raiz) -->
+    <color name="md_theme_primary">#006d3a</color>
+    <color name="md_theme_onPrimary">#ffffff</color>
+    <color name="md_theme_primaryContainer">#96f8b3</color>
+    <color name="md_theme_onPrimaryContainer">#00210d</color>
+    <color name="md_theme_secondary">#506352</color>
+    <color name="md_theme_onSecondary">#ffffff</color>
+    <color name="md_theme_secondaryContainer">#d3e8d3</color>
+    <color name="md_theme_onSecondaryContainer">#0d1f12</color>
+    <color name="md_theme_error">#ba1a1a</color>
+    <color name="md_theme_onError">#ffffff</color>
+    <color name="md_theme_background">#fcfdf7</color>
+    <color name="md_theme_onBackground">#1a1c1a</color>
+    <color name="md_theme_surface">#fcfdf7</color>
+    <color name="md_theme_onSurface">#1a1c1a</color>
+    <color name="md_theme_surfaceVariant">#dee5da</color>
+    <color name="md_theme_onSurfaceVariant">#424942</color>
+    <color name="md_theme_outline">#727971</color>
+    <color name="md_theme_inverseSurface">#2f312e</color>
+    <color name="md_theme_inverseOnSurface">#f0f1ec</color>
 
+    <!-- Cores de Risco para o modo claro (Adicionadas para evitar erros de build) -->
+    <color name="risk_level_high">#B3261E</color>
+    <color name="risk_level_medium">#E65100</color>
+    <color name="risk_level_low">#1B5E20</color>
 </resources>

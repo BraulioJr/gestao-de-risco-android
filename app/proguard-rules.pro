@@ -1,29 +1,30 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
+# Adicione regras específicas do ProGuard para o projeto aqui.
+# Você pode controlar o conjunto de arquivos de configuração aplicados usando a
+# configuração proguardFiles no build.gradle.
 #
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
+# Se o seu projeto usa WebView com JS, descomente o seguinte
+# e especifique o nome de classe totalmente qualificado para a classe
+# de interface JavaScript:
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
+# Descomente isto para preservar as informações de número de linha para
+# rastreamentos de pilha de depuração (stack traces).
 #-keepattributes SourceFile,LineNumberTable
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
+# Se você mantiver as informações de número de linha, descomente isto para
+# ocultar o nome do arquivo de origem original.
 #-renamesourcefileattribute SourceFile
 
 # Regras do ProGuard para Firebase Firestore
 # Mantenha os nomes de campos e métodos de seus modelos (POJOs) que são usados para serializar/desserializar dados do Firestore.
-# Substitua 'com.example.project_gestoderisco.models.**' pelo caminho real dos seus modelos de dados.
--keepclassmembers class com.example.project_gestoderisco.models.** {
+# Substitua 'com.example.gestaoderisco.models' pelo pacote real dos seus modelos de dados.
+# O ** no final garante que todas as classes e subclasses dentro do pacote 'models' sejam incluídas.
+-keepclassmembers class com.example.gestaoderisco.models.** {
     public <init>();
     public *;
 }

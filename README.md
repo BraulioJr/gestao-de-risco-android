@@ -1,65 +1,122 @@
-# Gestão de Risco - Aplicativo Android Nativo
+# Gestão de Risco - Plataforma de Prevenção de Perdas
 
-![Kotlin](https://img.shields.io/badge/language-Kotlin-blue.svg)
-![Platform](https://img.shields.io/badge/platform-Android-brightgreen.svg)
-![Firebase](https://img.shields.io/badge/backend-Firebase-orange.svg)
+O **Gestão de Risco** é um aplicativo Android avançado, projetado como uma plataforma completa de inteligência para equipes de Prevenção de Perdas (PP). Ele vai além do simples registro de ocorrências, oferecendo análises de dados em tempo real, insights preditivos com Machine Learning e ferramentas de gerenciamento de casos para otimizar a operação de segurança no varejo.
 
-## 📝 Visão Geral
+A arquitetura do projeto é focada em robustez, escalabilidade e usabilidade em campo, com um forte componente de operação offline.
 
-O **Gestão de Risco** é um aplicativo Android nativo, construído com as mais recentes tecnologias e melhores práticas, projetado para oferecer uma solução robusta e segura para o gerenciamento de riscos operacionais. A plataforma permite que usuários, como gestores e fiscais, identifiquem, documentem, monitorem e analisem riscos de forma eficiente, com foco especial na conformidade com a Lei Geral de Proteção de Dados (LGPD).
+---
 
 ## ✨ Principais Funcionalidades
 
-### Core & CRUD
-- **Autenticação Segura:** Sistema completo de login e registro com Firebase Authentication.
-- **Gerenciamento de Riscos (CRUD):** Funcionalidades completas para Criar, Ler, Atualizar e Excluir riscos.
-- **Sincronização em Tempo Real:** A interface do usuário é atualizada instantaneamente com as mudanças no banco de dados, graças ao Cloud Firestore.
+*   **Modo Offline-First:** O aplicativo é 100% funcional sem conexão com a internet. As ocorrências são salvas em um banco de dados local (Room) e sincronizadas automaticamente com o Firestore quando a rede está disponível.
+*   **Dashboard Analítico Avançado:** Uma central de inteligência visual com múltiplos gráficos para análise de dados:
+    *   **Mancha Criminal (Bubble Chart):** Identifica "hotspots" cruzando Horário, Categoria de Produto e Frequência de furtos.
+    *   **Análise Econômica:** Gráficos de barras que quantificam o prejuízo financeiro por loja.
+    *   **Evolução Temporal:** Gráfico de linhas que mostra a tendência de perdas ao longo dos dias.
+    *   **Correlação de Risco:** Gráfico de dispersão para analisar a relação entre o horário e o valor dos incidentes.
+*   **Previsão de Risco com IA:** Utiliza um modelo **TensorFlow Lite** para prever a probabilidade de um incidente ocorrer em tempo real. Possui um fallback para um modelo estatístico, garantindo que a funcionalidade esteja sempre ativa.
+*   **Gestão de Casos (Case Management):** Acompanha o ciclo de vida de cada ocorrência com status (`Aberto`, `Em Investigação`, `Resolvido`), permitindo um gerenciamento ativo dos incidentes.
+*   **Relatórios Automatizados:** Um `Worker` agendado envia relatórios semanais em formato CSV para o e-mail do Coordenador de PP.
+*   **Exportação de Dados Detalhada:** Permite a exportação de dados brutos e análises econômicas para CSV, facilitando a integração com ferramentas externas como Power BI, Tableau ou Excel.
+*   **Segurança Robusta:** Protege o acesso a funcionalidades sensíveis (configurações, exportação) com **autenticação biométrica**.
+*   **Notificações em Tempo Real:** Utiliza **Firebase Cloud Messaging (FCM)** para enviar alertas push sobre ocorrências de alto valor.
 
-### UX & Gerenciamento de Dados
-- **Busca Dinâmica:** Filtro em tempo real para encontrar riscos pelo nome.
-- **Ordenação Avançada:** Classifique a lista de riscos por data, nível de impacto ou probabilidade (ascendente e descendente).
-- **Interface Moderna:** UI limpa e intuitiva, construída com componentes do Material Design 3.
+---
 
-### Conformidade e Segurança (LGPD)
-- **Privacy by Design:** O formulário inclui campos dedicados para documentar riscos que afetam dados pessoais, alinhado com os princípios da LGPD.
-- **Controle do Titular:** Garante os direitos do usuário de acessar, corrigir e excluir seus próprios dados.
-- **Isolamento de Dados:** Regras de segurança robustas no Firestore garantem que um usuário só possa acessar e manipular os riscos que ele mesmo criou.
+## 👥 Personas e Seus Benefícios
 
-## 🛠️ Arquitetura e Tecnologias
+O projeto foi desenhado para atender às necessidades de uma equipe multidisciplinar:
 
-O projeto foi desenvolvido seguindo as diretrizes de arquitetura recomendadas pelo Google, garantindo um código escalável, testável e de fácil manutenção.
+#### 👨‍💼 Coordenador de Prevenção de Perdas (PP) Sênior
+*   **Visão Estratégica:** Usa o dashboard para tomar decisões rápidas sobre onde e quando alocar recursos de segurança.
+*   **Gestão Ativa:** Acompanha o status de cada caso, garantindo que todos os incidentes sejam investigados e resolvidos.
+*   **Conformidade:** Garante a aplicação correta dos procedimentos (ex: "Fundada Suspeita") através das ferramentas do app.
 
-- **Linguagem:** **Kotlin**
-- **Arquitetura:** **MVVM** (Model-View-ViewModel)
-- **Assincronismo:** **Kotlin Coroutines** e **Flow** para um gerenciamento de dados reativo e eficiente.
-- **Componentes de Arquitetura:**
-    - **ViewModel:** Gerencia o estado da UI e a lógica de negócio.
-    - **StateFlow:** Expõe o estado da UI de forma reativa e segura para o ciclo de vida.
-    - **ViewBinding:** Acesso seguro e type-safe às views do layout.
-- **Backend (Firebase Suite):**
-    - **Firebase Authentication:** Para autenticação de usuários.
-    - **Cloud Firestore:** Como banco de dados NoSQL em tempo real.
-    - **Firebase Storage:** Para armazenamento de arquivos e anexos (funcionalidade futura).
-- **Interface do Usuário (UI):**
-    - **Material Design 3:** Para um design moderno e consistente.
-    - **RecyclerView com `ListAdapter`:** Para uma exibição de listas performática e com animações automáticas.
+#### 📈 Analista de Dados Sênior
+*   **Dados de Qualidade:** Trabalha com dados padronizados e limpos, essenciais para análises precisas.
+*   **Ferramentas de Exploração:** Utiliza as visualizações avançadas do dashboard e a exportação para CSV para encontrar padrões e correlações profundas.
+*   **Base para IA:** Usa os dados coletados como base para treinar e aprimorar os modelos de Machine Learning.
 
-## ⚙️ Configuração e Execução
+#### 💻 Desenvolvedor e Programador Sênior
+*   **Arquitetura Moderna:** Trabalha com uma base de código bem estruturada (MVVM, Repository, Single Source of Truth), facilitando a manutenção e a adição de novas funcionalidades.
+*   **Código Testável:** A separação de responsabilidades permite a criação de testes unitários e instrumentados robustos.
+*   **Tecnologias Atuais:** Utiliza Kotlin, Coroutines, Flow, Room e WorkManager, seguindo as melhores práticas do ecossistema Android.
+
+#### 💰 Investidor Sênior
+*   **ROI Mensurável:** Vê claramente como o aplicativo mede um problema financeiro (perdas) e fornece as ferramentas para mitigá-lo, permitindo o cálculo do retorno sobre o investimento.
+*   **Vantagem Competitiva:** Reconhece o potencial da IA para transformar a operação de reativa para preditiva, posicionando a empresa como líder em inovação no setor.
+*   **Potencial de Escalabilidade (SaaS):** Identifica a oportunidade de transformar o projeto em um produto de Software como Serviço (SaaS) para outras empresas do varejo.
+
+---
+
+## 🛠️ Tech Stack & Arquitetura
+
+*   **Linguagem:** Kotlin
+*   **Arquitetura:** MVVM (ViewModel, LiveData/Flow) + Padrão Repository
+*   **Fonte Única da Verdade:** O banco de dados local é a fonte primária para a UI.
+*   **UI:** Android Views com Material Design 3
+*   **Programação Assíncrona:** Kotlin Coroutines e Flow
+*   **Banco de Dados Local:** Room (para operação offline)
+*   **Sincronização Remota:** Firebase Firestore
+*   **Tarefas em Segundo Plano:** WorkManager
+*   **Gráficos:** MPAndroidChart
+*   **Machine Learning:** TensorFlow Lite
+*   **Notificações Push:** Firebase Cloud Messaging (FCM)
+*   **Segurança:** BiometricPrompt API
+
+---
+
+## 🚀 Configuração do Projeto
 
 1.  **Clonar o Repositório:**
-    ```sh
-    git clone https://github.com/seu-usuario/Project_GestaoDeRisco.git
+    ```bash
+    git clone [URL_DO_REPOSITORIO]
     ```
-2.  **Abrir no Android Studio:**
-    - Abra o Android Studio e selecione `Open an existing project`.
-    - Navegue até a pasta do projeto clonado e abra-o.
-3.  **Conectar ao Firebase:**
-    - Crie um novo projeto no Firebase Console.
-    - No console, adicione um novo aplicativo Android com o `package name` `com.example.project_gestoderisco`.
-    - Baixe o arquivo `google-services.json` gerado e coloque-o dentro da pasta `app/` do seu projeto no Android Studio.
-    - No Firebase Console, habilite os seguintes serviços:
-        - **Authentication:** Ative o provedor de **E-mail/senha**.
-        - **Firestore Database:** Crie um novo banco de dados.
-        - **Storage:** Crie um novo bucket de armazenamento.
-4.  **Executar o Aplicativo:**
-    - Com um emulador em execução ou um dispositivo físico conectado, clique no botão "Run 'app'" no Android Studio.
+
+2.  **Configuração do Firebase:**
+    *   Faça o download do seu arquivo `google-services.json` no console do Firebase.
+    *   Coloque o arquivo `google-services.json` no diretório `app/`.
+
+3.  **Dependências de Machine Learning:**
+    *   Certifique-se de que as seguintes dependências estão no seu arquivo `app/build.gradle`:
+    ```gradle
+    dependencies {
+        // ...
+        implementation("org.tensorflow:tensorflow-lite:2.14.0")
+        implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
+    }
+    ```
+
+4.  **Modelo de IA:**
+    *   Para que a funcionalidade de previsão com IA funcione, coloque o seu modelo treinado com o nome `risk_model.tflite` na pasta `app/src/main/assets/`.
+    *   Se o modelo não for encontrado, o aplicativo usará um fallback baseado em estatísticas, sem quebrar.
+
+5.  **Sincronize e Execute:**
+    *   Abra o projeto no Android Studio, aguarde a sincronização do Gradle e execute o aplicativo.
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
+com.example.gestaoderisco
+├── analysis/         # Lógica de processamento estatístico (StatisticsAnalyzer)
+├── data/
+│   └── local/        # Componentes do Room DB (AppDatabase, OcorrenciaDao, Converters)
+├── ml/               # Lógica de Machine Learning (RiskPredictor)
+├── models/           # Data classes (Ocorrencia)
+├── repository/       # Repositório central de dados (OcorrenciasRepository)
+├── service/          # Serviços em segundo plano (MyFirebaseMessagingService)
+├── view/             # Activities e Fragments (UI)
+├── viewmodel/        # ViewModels (lógica de UI e estado)
+└── worker/           # Workers para tarefas em segundo plano (SyncWorker, WeeklyReportWorker)
+```
+
+---
+
+## 🗺️ Roadmap e Próximos Passos
+
+*   **Treinamento do Modelo de IA:** Iniciar a coleta de dados para treinar a primeira versão do modelo preditivo.
+*   **Mapa Geográfico:** Implementar um mapa (Google Maps SDK) para visualizar a densidade de ocorrências por localização de loja.
+*   **Injeção de Dependência:** Refatorar o projeto para usar **Hilt** para gerenciar dependências.
+*   **Arquivamento de Dados:** Criar uma rotina para arquivar ocorrências antigas (ex: status "Resolvido" há mais de 1 ano) para otimizar a performance do banco de dados local.

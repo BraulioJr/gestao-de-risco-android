@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gestaoderisco.R
-import com.example.gestaoderisco.data.local.Ocorrencia
+import com.example.gestaoderisco.models.Ocorrencia
 import com.example.gestaoderisco.databinding.ItemOcorrenciaBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
