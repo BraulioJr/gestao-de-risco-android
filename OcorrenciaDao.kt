@@ -28,10 +28,10 @@ interface OcorrenciaDao {
     @Query("SELECT * FROM ocorrencias WHERE tenantId = :tenantId AND dataRegistro BETWEEN :startDate AND :endDate")
     suspend fun getByDateRange(tenantId: String, startDate: Long, endDate: Long): List<Ocorrencia>
 
-    @Query("SELECT * FROM ocorrencias WHERE tenantId = :tenantId AND loja LIKE :searchQuery || '%' ORDER BY data DESC")
+    @Query("SELECT * FROM ocorrencias WHERE tenantId = :tenantId AND loja LIKE :searchQuery || '%' ORDER BY dataRegistro DESC")
     fun getOcorrencias(tenantId: String, searchQuery: String): Flow<List<Ocorrencia>>
 
-    @Query("SELECT * FROM ocorrencias WHERE tenantId = :tenantId AND loja = :storeName ORDER BY data DESC")
+    @Query("SELECT * FROM ocorrencias WHERE tenantId = :tenantId AND loja = :storeName ORDER BY dataRegistro DESC")
     fun getOcorrenciasForStore(tenantId: String, storeName: String): Flow<List<Ocorrencia>>
 
     @Query("SELECT * FROM ocorrencias WHERE id = :id LIMIT 1")

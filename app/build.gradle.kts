@@ -46,6 +46,13 @@ android {
 }
 
 dependencies {
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("androidx.test.ext:junit:1.1.5")
+    testImplementation("androidx.test:core-ktx:1.5.0")
+    testImplementation("org.robolectric:robolectric:4.11.1")
+    testImplementation("androidx.room:room-testing:2.6.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
     implementation(libs.core.splashscreen)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
@@ -79,10 +86,6 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
-
-    testImplementation(libs.junit)
-    testImplementation(libs.core.testing)
-    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk)
     testImplementation(libs.turbine)
     

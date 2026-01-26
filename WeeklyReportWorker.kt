@@ -27,7 +27,7 @@ class WeeklyReportWorker(
     workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
 
-    private val repository = OcorrenciasRepository()
+    private val repository = OcorrenciasRepository(applicationContext)
 
     override suspend fun doWork(): Result {
         return try {

@@ -8,6 +8,7 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.gestaoderisco.models.Ocorrencia
+import com.example.gestaoderisco.data.local.OcorrenciaDao
 
 @Database(entities = [Ocorrencia::class], version = 4)
 @TypeConverters(Converters::class)
