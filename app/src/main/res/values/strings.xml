@@ -272,4 +272,10 @@
     <string name="report_title">RELATÓRIO TÉCNICO DE OCORRÊNCIAS</string>
     <string name="report_subtitle">Análise de Riscos e Perdas</string>
     <string name="report_city_year">Juiz de Fora, 2024</string>
+
+    <!-- Strings Faltantes -->
+    <string name="risk_details_title">Detalhes do Risco</string>
+    <string name="next">Próximo</string>
+    <string name="previous">Anterior</string>
+    <string name="lorem_ipsum">Lorem Ipsum</string>
 </resources>

@@ -25,6 +25,9 @@
     <color name="risk_level_high">#B3261E</color>
     <color name="risk_level_medium">#E65100</color>
     <color name="risk_level_low">#1B5E20</color>
+    <color name="risk_high">#B3261E</color>
+    <color name="risk_medium">#E65100</color>
+    <color name="risk_low">#1B5E20</color>
     <color name="white">#FFFFFF</color>
     <color name="gold">#FFD700</color>
 </resources>

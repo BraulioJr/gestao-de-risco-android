@@ -4,4 +4,5 @@
     <attr name="riskLevelHighColor" format="color" />
     <attr name="riskLevelMediumColor" format="color" />
     <attr name="riskLevelLowColor" format="color" />
+    <attr name="iconContentDescription" format="string" />
 </resources>
