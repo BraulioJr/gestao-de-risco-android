@@ -295,6 +295,416 @@ Project_GestaoDeRisco/
 
 ---
 
+## 🏢 Enterprise Project Structure
+
+### Visão Geral - Arquitetura em Camadas
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  📱 PRESENTATION LAYER (UI/UX)                              │
+│  Activities • Fragments • Adapters • ViewBinding              │
+│  Material Design 3 • Navigation • Bottom Navigation          │
+└──────────────┬──────────────────────────────────────────────┘
+               │ (observa eventos, mostra dados)
+┌──────────────▼──────────────────────────────────────────────┐
+│  🎯 VIEWMODEL LAYER (State Management)                      │
+│  ViewModels • LiveData/Flow • Coroutines                    │
+│  UI State Holders • Event Handlers                          │
+└──────────────┬──────────────────────────────────────────────┘
+               │ (orquestra lógica de negócio)
+┌──────────────▼──────────────────────────────────────────────┐
+│  🏗️  REPOSITORY LAYER (Business Logic)                      │
+│  Repositories • Use Cases • Data Orchestration              │
+│  Offline-First Sync • Conflict Resolution                   │
+└──────────────┬──────────────────────────────────────────────┘
+               │
+    ┌──────────┴──────────┐
+    │                     │
+┌───▼─────────────┐  ┌────▼──────────────┐
+│ 💾 LOCAL LAYER  │  │ ☁️  REMOTE LAYER  │
+│ Room SQLite     │  │ Firebase Services │
+│ Migrations      │  │ Real-time Sync    │
+└─────────────────┘  └───────────────────┘
+```
+
+### 1️⃣ Presentation Layer (UI)
+
+**Responsabilidades:**
+- Renderizar UI conforme estado do ViewModel
+- Capturar eventos do usuário
+- Navegar entre telas
+- Exibir notificações
+
+**Estrutura:**
+```
+view/
+├── MainActivity.kt ................. Hub de navegação principal
+├── RiskDetailActivity.kt .......... Detalhes de incidente
+├── DashboardActivity.kt .......... Analytics dashboard
+├── MapActivity.kt ................. Mapa de hotspots
+│
+├── fragments/
+│   ├── DashboardFragment.kt ....... Charts container
+│   ├── RiskListFragment.kt ........ Lista de incidências
+│   └── SettingsFragment.kt ........ Configurações
+│
+└── adapters/
+    ├── OcorrenciaAdapter.kt ....... RecyclerView adapter
+    ├── RiskAdapter.kt ............ Risk list adapter
+    └── DashboardChartAdapter.kt .. Chart container adapter
+```
+
+**Padrões:**
+- ✅ ViewBinding (type-safe view access)
+- ✅ Fragment-based navigation (Jetpack Navigation)
+- ✅ Material Design 3 components
+- ✅ Responsive layouts (portrait/landscape)
+- ✅ Accessibility (TalkBack, color contrast)
+
+### 2️⃣ ViewModel Layer (State Management)
+
+**Responsabilidades:**
+- Manter estado UI
+- Processar eventos de usuário
+- Comunicar com Repository
+- Recuperar estado após process death
+
+**Estrutura:**
+```
+viewmodel/
+├── MainViewModel.kt ............... App-wide state
+├── RiskViewModel.kt .............. Risk predictions + list
+├── DashboardViewModel.kt ......... Chart data aggregation
+├── OcorrenciasViewModel.kt ....... Incident management
+│
+└── factory/
+    ├── RiskViewModelFactory.kt
+    ├── DashboardViewModelFactory.kt
+    └── OcorrenciasViewModelFactory.kt
+```
+
+**Exemplo:**
+```kotlin
+// ViewModels usam LiveData/Flow para reactive updates
+class RiskViewModel @Inject constructor(
+    private val repository: RiskRepository
+) : ViewModel() {
+    
+    // Público: UI observa estas LiveData
+    val riskList: LiveData<List<Risk>> = repository.getRisksLive()
+    val predictedRisk: LiveData<Risk?> = MutableLiveData()
+    val loadingState: LiveData<LoadingState> = MutableLiveData()
+    
+    // Privado: lógica interna
+    private fun predictRisk(incident: Ocorrencia) {
+        viewModelScope.launch {
+            try {
+                val prediction = repository.predictRisk(incident)
+                predictedRisk.value = prediction
+            } catch (e: Exception) {
+                // Error handling
+            }
+        }
+    }
+}
+```
+
+### 3️⃣ Repository Layer (Business Logic)
+
+**Responsabilidades:**
+- Orquestrar dados locais (Room) + remotos (Firestore)
+- Aplicar regras de negócio
+- Gerenciar sincronização offline-first
+- Resolver conflitos de dados
+
+**Estrutura:**
+```
+repository/
+├── OcorrenciaRepository.kt ........ CRUD de incidentes
+├── RiskRepository.kt ............ Predições + análise
+├── UserRepository.kt ............ Perfil de usuário
+├── SyncRepository.kt ............ Orquestração de sync
+│
+└── interfaces/
+    ├── IRepository.kt .......... Contrato genérico
+    └── ISyncable.kt ........... Interface de sync
+```
+
+**Exemplo:**
+```kotlin
+class OcorrenciaRepository @Inject constructor(
+    private val localDao: OcorrenciaDao,
+    private val remoteDb: FirebaseFirestore
+) {
+    
+    // Read: Room é source of truth
+    fun getAllOcorrencias(clientId: String): Flow<List<Ocorrencia>> {
+        return localDao.getAllOcorrencias(clientId)
+            .map { entities -> entities.map { it.toModel() } }
+    }
+    
+    // Write: Save locally, mark for sync
+    suspend fun createOcorrencia(ocorrencia: Ocorrencia, clientId: String) {
+        val entity = ocorrencia.toEntity(clientId, synced = false)
+        localDao.insert(entity)
+        // WorkManager enfilera sync background
+    }
+    
+    // Sync: Room → Firestore
+    suspend fun syncOcorrencias(clientId: String) {
+        val unsynced = localDao.getUnsyncedOcorrencias(clientId)
+        for (entity in unsynced) {
+            try {
+                remoteDb.collection("clients/$clientId/ocorrencias")
+                    .document(entity.id)
+                    .set(entity.toDto())
+                    .await()
+                localDao.markAsSynced(entity.id)
+            } catch (e: Exception) {
+                // Retry logic
+            }
+        }
+    }
+}
+```
+
+### 4️⃣ Data Layer (Local & Remote)
+
+#### Local: Room Database
+```
+data/local/
+├── AppDatabase.kt ................. Database definition
+│   ├── Entities: OcorrenciaEntity, UserProfileEntity
+│   ├── DAOs: OcorrenciaDao, UserProfileDao
+│   └── Migrations: Auto-tracked version history
+│
+├── dao/
+│   ├── OcorrenciaDao.kt .......... CRUD + custom queries
+│   │   ├── @Insert: criar
+│   │   ├── @Update: atualizar
+│   │   ├── @Delete: deletar
+│   │   ├── @Query: queries customizadas
+│   │   │   ├── getAllOcorrencias(clientId) -> Flow<List>
+│   │   │   ├── getUnsyncedOcorrencias(clientId) -> List
+│   │   │   └── getOcorrenciasByDateRange(...) -> Flow<List>
+│   │   └── @Transaction: operações atômicas
+│   │
+│   ├── UserProfileDao.kt ........ Perfil do usuário
+│   └── CacheDao.kt ............ Cache de dados
+│
+└── converter/
+    ├── DateConverter.kt ........ java.util.Date ↔ Long
+    ├── ListConverter.kt ....... List ↔ JSON string
+    └── EnumConverter.kt ...... Enums ↔ String
+```
+
+#### Remote: Firebase Services
+```
+data/remote/
+├── FirebaseService.kt ........... Wrapper Firebase
+│   ├── Firestore queries
+│   ├── Cloud Storage uploads
+│   ├── Auth management
+│   └── Cloud Messaging handling
+│
+└── dto/
+    ├── OcorrenciaRequest.kt .... DTO upload
+    ├── OcorrenciaResponse.kt ... DTO download
+    └── RiskPredictionDto.kt ... IA response DTO
+```
+
+### 5️⃣ Supporting Layers
+
+#### Workers (Background Jobs)
+```
+worker/
+├── SyncWorker.kt ................ Sync automático (1h)
+│   ├── Trigger: WorkManager com constraints
+│   ├── Lógica: Room → Firebase Storage (images) → Firestore (data)
+│   └── Retry: Exponential backoff
+│
+├── ArchiveWorker.kt ............ Auto-archive (semanal)
+│   └── Lógica: Move dados antigos para arquivo
+│
+└── WeeklyReportWorker.kt ....... Relatório automático
+    └── Lógica: Gera CSV + envia email
+```
+
+#### Models (Domain)
+```
+model/
+├── Ocorrencia.kt ............... Entidade principal de domínio
+│   ├── id, clientId, timestamp
+│   ├── location, product, value
+│   ├── status (Open, InProgress, Resolved)
+│   └── attachments (fotos)
+│
+├── Risk.kt ................... Predição de IA
+│   ├── score (0-100)
+│   ├── confidence (0-1.0)
+│   ├── factors (reasons for prediction)
+│   └── model_version
+│
+├── UserProfile.kt ........... Perfil do usuário
+└── LgpdDetails.kt .......... LGPD metadata (consentimentos)
+```
+
+#### Utils (Helpers)
+```
+utils/
+├── CsvGenerator.kt .......... Export para CSV
+│   ├── Header generation
+│   ├── Row formatting
+│   └── File writing
+│
+├── WordGenerator.kt ........ Export para DOCX
+│   ├── Template handling
+│   └── Content injection
+│
+├── RiskClusterRenderer.kt .. Clustering no Maps
+│   ├── ClusterItem rendering
+│   └── CustomMarkerView
+│
+├── DateUtils.kt ......... Date formatting
+├── CurrencyUtils.kt .... Currency formatting
+└── ValidationUtils.kt .. Input validation
+```
+
+### 6️⃣ Configuração & DI
+
+```
+App root/
+├── GestaoDeRiscoApplication.kt .. App entry point
+│   ├── Hilt setup
+│   ├── WorkManager config
+│   └── Firebase initialization
+│
+├── di/
+│   ├── DatabaseModule.kt ....... Room provider
+│   ├── FirebaseModule.kt ....... Firebase services
+│   ├── RepositoryModule.kt ..... Repo implementations
+│   └── WorkerModule.kt ........ Worker factories
+│
+├── MyFirebaseMessagingService.kt . FCM handler
+└── ThemeManager.kt ........... Dark/light theme
+```
+
+### 7️⃣ Resources (XML)
+
+```
+res/
+├── layout/ (24 arquivos)
+│   ├── activity_*.xml ......... Activity layouts
+│   ├── fragment_*.xml ........ Fragment layouts
+│   ├── item_*.xml ........... RecyclerView items
+│   └── dialog_*.xml ........ Dialog layouts
+│
+├── drawable/ (icon vectors)
+│   ├── ic_close.xml
+│   ├── ic_arrow_back.xml
+│   ├── br_logo.xml
+│   └── risk_level_*.xml
+│
+├── anim/
+│   └── fade_in.xml ......... Animations
+│
+├── menu/
+│   ├── bottom_nav_menu.xml
+│   └── action_menu.xml
+│
+├── values/
+│   ├── strings.xml ......... Textos (i18n ready)
+│   ├── colors.xml ......... Paleta de cores
+│   ├── themes.xml ........ Material Design 3
+│   ├── dimens.xml ....... Spacing & sizes
+│   ├── attrs.xml ........ Custom attributes
+│   └── styles.xml ....... Style definitions
+│
+└── xml/
+    ├── provider_paths.xml ... File provider config
+    ├── network_security.xml . Network config
+    └── data_binding.xml .... Data binding config
+```
+
+### 8️⃣ Testing
+
+```
+test/ (Unit Tests)
+├── RepositoryTests.kt
+├── ViewModelTests.kt
+├── UtilsTests.kt
+└── MainCoroutineRule.kt .... Coroutine testing
+
+androidTest/ (Integration Tests)
+├── RepositoryInstrumentedTest.kt
+├── DatabaseMigrationTest.kt
+└── FirebaseEmulatorTest.kt
+```
+
+---
+
+### 📊 Data Flow Diagram
+
+```
+USER ACTION
+     ↓
+  Fragment
+     ↓
+ViewModel.onEvent()
+     ↓
+Repository.createOcorrencia()
+     ↓
+┌────┴──────┐
+│            │
+Room Insert  (Local saved immediately)
+│            │
+└────┬──────┘
+     ↓
+WorkManager enqueues SyncWorker
+     ↓
+Background: SyncWorker.doWork()
+     ↓
+┌────┴──────────────┐
+│                   │
+Firebase Storage    Firestore
+(Upload images)     (Upload metadata)
+│                   │
+└────┬──────────────┘
+     ↓
+Room.markAsSynced()
+     ↓
+UI updated via LiveData
+```
+
+### 🔐 Multi-Tenant Isolation Pattern
+
+```kotlin
+// SEMPRE incluir clientId em Room queries
+@Query("SELECT * FROM ocorrencias WHERE clientId = :clientId")
+suspend fun getOcorrencias(clientId: String): List<OcorrenciaEntity>
+
+// Firestore rules validam isolamento
+match /clients/{clientId}/ocorrencias/{document=**} {
+  allow read, write: if 
+    request.auth.uid != null && 
+    getUserClientId(request.auth.uid) == clientId;
+}
+```
+
+### 📈 Componentes por Função
+
+| Componente | Camada | Responsabilidade | Testabilidade |
+|-----------|--------|-----------------|---------------|
+| Activity | UI | Navegação + lifecycle | Média |
+| Fragment | UI | UI rendering | Média |
+| ViewModel | State | Estado + eventos | ✅ Alto |
+| Repository | Business | Orquestração dados | ✅ Alto |
+| DAO | Data | Queries Room | ✅ Alto |
+| Worker | Background | Sync automático | ✅ Alto |
+| UseCase | Business | Lógica isolada | ✅ Alto |
+
+---
+
 ## 📚 Documentação Completa
 
 ### Guias Principais
