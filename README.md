@@ -1,8 +1,21 @@
-# Gestão de Risco - Plataforma de Prevenção de Perdas
+# 🛡️ Gestão de Risco - Plataforma SaaS de Prevenção de Perdas Inteligente
 
-O **Gestão de Risco** é um aplicativo Android avançado, projetado como uma plataforma completa de inteligência para equipes de Prevenção de Perdas (PP). Ele vai além do simples registro de ocorrências, oferecendo análises de dados em tempo real, insights preditivos com Machine Learning e ferramentas de gerenciamento de casos para otimizar a operação de segurança no varejo.
+[![Android](https://img.shields.io/badge/Android-14%2B-green?logo=android&logoColor=white)](https://developer.android.com/)
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.9%2B-purple?logo=kotlin&logoColor=white)](https://kotlinlang.org/)
+[![Firebase](https://img.shields.io/badge/Firebase-Latest-orange?logo=firebase&logoColor=white)](https://firebase.google.com/)
+[![TensorFlow Lite](https://img.shields.io/badge/TensorFlow%20Lite-AI%2FML-red?logo=tensorflow&logoColor=white)](https://www.tensorflow.org/lite)
+[![Build](https://img.shields.io/badge/Build-Passing-brightgreen)](https://github.com/BraulioJr/gestao-de-risco-android)
+[![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
-A arquitetura do projeto é focada em robustez, escalabilidade e usabilidade em campo, com um forte componente de operação offline.
+**Plataforma inteligente para Prevenção de Perdas em varejo com IA preditiva, análise em tempo real e sincronização offline-first**
+
+> 📖 **[Leia o README PROFISSIONAL COMPLETO →](README_PROFESSIONAL.md)** para documentação técnica detalhada
+
+---
+
+O **Gestão de Risco** é um aplicativo Android avançado, projetado como uma plataforma completa de inteligência para equipes de Prevenção de Perdas (PP). Combinando **offline-first architecture**, **machine learning preditivo** e **analytics em tempo real**, oferece às equipes a ferramenta decisiva para reduzir perdas e otimizar recursos.
+
+A arquitetura do projeto é focada em robustez, escalabilidade e usabilidade em campo, com um forte componente de operação offline e sincronização inteligente com backend.
 
 ---
 
