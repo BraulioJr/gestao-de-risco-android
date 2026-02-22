@@ -8,6 +8,19 @@ dor novo
 			alias(libs.plugins.google.gms.services)
 			alias(libs.plugins.kotlin.parcelize)
 		}
+
+fun getVersionCodeFromGit(): Int {
+    return try {
+        val process = ProcessBuilder("git", "rev-list", "--count", "HEAD").start()
+        val reader = process.inputStream.bufferedReader()
+        val versionCode = reader.readLine().trim().toInt()
+        process.waitFor()
+        versionCode
+    } catch (e: Exception) {
+        1
+    }
+}
+
 android {
 	@Suppress("UnstableApiUsage")
 	namespace = "com.example.project_gestoderisco"
@@ -17,11 +30,25 @@ android {
 		applicationId = "com.example.project_gestoderisco"
 		minSdk = 26
 		targetSdk = 34
-		versionCode = 1
+		versionCode = getVersionCodeFromGit()
 		versionName = "1.0"
 
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 		multiDexEnabled = true
+	}
+
+	signingConfigs {
+		create("release") {
+			val propsFile = rootProject.file("keystore.properties")
+			if (propsFile.exists()) {
+				val props = java.util.Properties()
+				props.load(propsFile.inputStream())
+				keyAlias = props.getProperty("keyAlias")
+				keyPassword = props.getProperty("keyPassword")
+				storeFile = if (props.getProperty("storeFile") != null) file(props.getProperty("storeFile")) else null
+				storePassword = props.getProperty("storePassword")
+			}
+		}
 	}
 
 	buildTypes {
@@ -31,6 +58,7 @@ android {
 				getDefaultProguardFile("proguard-android-optimize.txt"),
 				"proguard-rules.pro"
 			)
+			signingConfig = signingConfigs.getByName("release")
 		}
 	}
 	compileOptions {

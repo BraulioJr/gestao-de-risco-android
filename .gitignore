@@ -1,27 +1,19 @@
 *.iml
 .gradle
 /local.properties
-.idea/
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
 
-# Compiled output
-*.apk
-*.aab
-
-# Executables and installers
-*.exe
-*.dmg
-
-# Log files
-*.log
-
-# Ignorar projeto Flutter aninhado
-/meu_app_flutter/
-
-# Dependências do Node.js
-/functions/node_modules/
+# Keystore
+*.jks
+keystore.properties
 node_modules/

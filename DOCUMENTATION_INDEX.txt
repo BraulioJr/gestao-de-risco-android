@@ -28,6 +28,7 @@ DOCUMENTOS DE ENGENHARIA:
 ├─ README_TECNICO.md ....................... Detalhes de Implementação
 ├─ DATABASE_MODEL.md ....................... Modelo de Banco de Dados (Room)
 └─ XP_MATHEMATICAL_MODEL.md ................ Modelo Matemático de XP
+├─ VERSIONING_STRATEGY.md .................. Estratégia de Versionamento e Release
 ├─ ROADMAP_TECNICO.md ...................... Roadmap de 12 Meses (IA & SaaS)
 
 NEGÓCIOS & INVESTIMENTO (VC PACK):
