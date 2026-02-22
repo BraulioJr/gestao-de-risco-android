@@ -2,10 +2,12 @@ plugins {
 
 	id("com.android.application")
 	id("org.jetbrains.kotlin.android")
-	alias(libs.plugins.hilt)
+	alias(libs.plugins.android.application)
+	alias(libs.plugins.kotlin.android)
+	id("com.google.dagger.hilt.android")
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.google.gms.services)
-	id("kotlin-parcelize")
+
 }
 
 fun getVersionCodeFromGit(): Int {
@@ -16,6 +18,7 @@ fun getVersionCodeFromGit(): Int {
         process.waitFor()
         versionCode
     } catch (e: Exception) {
+        e.printStackTrace() // Loga o erro para facilitar a depuração, especialmente em ambientes de CI
         1
     }
 }

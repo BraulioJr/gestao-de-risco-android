@@ -25,4 +25,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "project_gestoderisco"
 include(":app")
-

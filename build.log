@@ -1,0 +1,48 @@
+Initialized native services in: C:\Users\user\.gradle\native
+Initialized jansi services in: C:\Users\user\.gradle\native
+Found daemon DaemonInfo{pid=13000, address=[e76af75e-8303-465f-ac09-3636df4be15d port:52600, addresses:[/127.0.0.1]], state=Idle, lastBusy=1771797286995, context=DefaultDaemonContext[uid=5221a78c-87b0-4acc-8833-91732611ed9a,javaHome=C:\Program Files\Android\Android Studio\jbr,javaVersion=21,javaVendor=JetBrains s.r.o.,daemonRegistryDir=C:\Users\user\.gradle\daemon,pid=13000,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=127.0.0.1:52595,-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=BR,-Duser.language=pt,-Duser.variant]} however its context does not match the desired criteria.
+At least one daemon option is different.
+Wanted: DaemonRequestContext{jvmCriteria=C:\Program Files\Android\Android Studio\jbr (no JDK specified, using current Java home), daemonOpts=[-Xmx2048m, -Dfile.encoding=UTF-8, -Duser.country=BR, -Duser.language=pt, -Duser.variant], applyInstrumentationAgent=true, nativeServicesMode=ENABLED, priority=NORMAL}
+Actual: DefaultDaemonContext[uid=5221a78c-87b0-4acc-8833-91732611ed9a,javaHome=C:\Program Files\Android\Android Studio\jbr,javaVersion=21,javaVendor=JetBrains s.r.o.,daemonRegistryDir=C:\Users\user\.gradle\daemon,pid=13000,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=127.0.0.1:52595,-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=BR,-Duser.language=pt,-Duser.variant]
+
+  Looking for a different daemon...
+The client will now receive all logging from the daemon (pid: 8256). The daemon log file: C:\Users\user\.gradle\daemon\9.1.0\daemon-8256.out.log
+Starting 7th build in daemon [uptime: 22 mins 23.416 secs, performance: 98%, GC rate: 0.00/s, heap usage: 0% of 2 GiB]
+Using 4 worker leases.
+Now considering [C:\Users\user\AndroidStudioProjects\Project_GestaoDeRisco] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Caching disabled for Kotlin DSL script compilation (Settings/TopLevel/stage1) because:
+  Build cache is disabled
+e: file:///C:/Users/user/AndroidStudioProjects/Project_GestaoDeRisco/settings.gradle.kts:13:11: Unresolved reference 'libs'.
+e: file:///C:/Users/user/AndroidStudioProjects/Project_GestaoDeRisco/settings.gradle.kts:13:16: 'fun Project.plugins(block: PluginDependenciesSpec.() -> Unit): Nothing' is deprecated. The plugins {} block must not be used here. If you need to apply a plugin imperatively, please use apply<PluginType>() or apply(plugin = "id") instead.
+e: file:///C:/Users/user/AndroidStudioProjects/Project_GestaoDeRisco/settings.gradle.kts:13:24: Unresolved reference 'hilt'.
+
+FAILURE: Build failed with an exception.
+
+* Where:
+Settings file 'C:\Users\user\AndroidStudioProjects\Project_GestaoDeRisco\settings.gradle.kts' line: 13
+
+* What went wrong:
+Script compilation errors:
+
+  Line 13:     alias(libs.plugins.hilt) version "2.50" apply false
+                     ^ Unresolved reference 'libs'.
+
+  Line 13:     alias(libs.plugins.hilt) version "2.50" apply false
+                          ^ 'fun Project.plugins(block: PluginDependenciesSpec.() -> Unit): Nothing' is deprecated. The plugins {} block must not be used here. If you need to apply a plugin imperatively, please use apply<PluginType>() or apply(plugin = "id") instead.
+
+  Line 13:     alias(libs.plugins.hilt) version "2.50" apply false
+                                  ^ Unresolved reference 'hilt'.
+
+3 errors
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 3s
+Watched directory hierarchies: []
