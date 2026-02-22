@@ -1,4 +1,3 @@
-dor novo
 		plugins {
 
 			alias(libs.plugins.android.application)
@@ -45,7 +44,7 @@ android {
 				props.load(propsFile.inputStream())
 				keyAlias = props.getProperty("keyAlias")
 				keyPassword = props.getProperty("keyPassword")
-				storeFile = if (props.getProperty("storeFile") != null) file(props.getProperty("storeFile")) else null
+				storeFile = if (props.getProperty("storeFile") != null) rootProject.file(props.getProperty("storeFile")) else null
 				storePassword = props.getProperty("storePassword")
 			}
 		}
