@@ -51,8 +51,18 @@ class WeeklyReportWorker(
     }
 
     private fun generateCsvFile(data: List<Ocorrencia>): File {
-        val csvHeader = "Loja,Data,Valor,Categoria,Ação,Relato\n"
         val sb = StringBuilder()
+
+        // --- BRANDING & CABEÇALHO ---
+        val institution = applicationContext.getString(R.string.report_institution_name)
+        val title = applicationContext.getString(R.string.report_title)
+        val subtitle = "RELATÓRIO SEMANAL AUTOMÁTICO"
+        
+        sb.append(escapeCsv(institution)).append("\n")
+        sb.append(escapeCsv(title)).append("\n")
+        sb.append(escapeCsv(subtitle)).append("\n\n")
+
+        val csvHeader = "Loja,Data,Valor,Categoria,Ação,Relato\n"
         sb.append(csvHeader)
 
         val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale("pt", "BR"))
@@ -66,6 +76,11 @@ class WeeklyReportWorker(
 
             sb.append("$loja,$dateStr,${item.valorEstimado},$produtos,$acao,$relato\n")
         }
+
+        // --- RODAPÉ DE SEGURANÇA ---
+        sb.append("\n")
+        sb.append(escapeCsv(applicationContext.getString(R.string.report_confidentiality))).append("\n")
+        sb.append(escapeCsv(applicationContext.getString(R.string.report_security_warning))).append("\n")
 
         val cachePath = File(applicationContext.cacheDir, "exports")
         cachePath.mkdirs()

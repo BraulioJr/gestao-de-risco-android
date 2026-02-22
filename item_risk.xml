@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.GestaoRisco.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="12dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Título (Loja) -->
+        <TextView
+            android:id="@+id/tvStore"
+            style="@style/TextAppearance.GestaoRisco.Headline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="Loja 01 - Centro"
+            app:layout_constraintEnd_toStartOf="@+id/tvValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Data -->
+        <TextView
+            android:id="@+id/tvDate"
+            style="@style/TextAppearance.GestaoRisco.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            tools:text="12/05/2024 • 14:30"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvStore" />
+
+        <!-- Valor (Destaque) -->
+        <TextView
+            android:id="@+id/tvValue"
+            style="@style/TextAppearance.GestaoRisco.Headline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/status_danger"
+            tools:text="R$ 1.250,00"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Chip Tático (GOE) - VISÍVEL APENAS PARA OCORRÊNCIAS ESPECIAIS -->
+        <!-- Aplicação do estilo Tactical aqui -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipGoe"
+            style="@style/Widget.GestaoRisco.Chip.Tactical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:enabled="false"
+            android:text="@string/team_goe_acronym"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDate" />
+
+        <!-- Chip de Categoria (Estilo Padrão) -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipCategory"
+            style="@style/Widget.Material3.Chip.Suggestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:enabled="false"
+            tools:text="Eletrônicos"
+            app:layout_constraintBottom_toBottomOf="@+id/chipGoe"
+            app:layout_constraintStart_toEndOf="@+id/chipGoe"
+            app:layout_constraintTop_toTopOf="@+id/chipGoe" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

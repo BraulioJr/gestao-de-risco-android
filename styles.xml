@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ============================================================
+         REGRA 60-30-10: IMPLEMENTAÇÃO DE ESTILOS
+         ============================================================ -->
+
+    <!-- 60% - CORES DE SUPORTE (Neutras)
+         Usadas em fundos, textos e estruturas para garantir legibilidade e leveza. -->
+    
+    <style name="TextAppearance.GestaoRisco.Headline" parent="TextAppearance.Material3.Headline.Medium">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextAppearance.GestaoRisco.Body" parent="TextAppearance.Material3.Body.Medium">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Widget.GestaoRisco.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardElevation">2dp</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
+    <!-- 30% - COR PRIMÁRIA (Identidade)
+         Usada para guiar o usuário nas ações principais (Botões, FABs). -->
+
+    <style name="Widget.GestaoRisco.Button.Primary" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/primary_blue</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <style name="Widget.GestaoRisco.Fab" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="backgroundTint">@color/primary_blue</item>
+        <item name="tint">@color/white</item>
+    </style>
+
+    <!-- 10% - CORES DE AÇÃO (Feedback Estratégico)
+         Usadas pontualmente para indicar status e riscos. -->
+
+    <style name="Widget.GestaoRisco.Chip.Success" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@color/status_success</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Widget.GestaoRisco.Chip.Warning" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@color/status_warning</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Widget.GestaoRisco.Chip.Danger" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@color/status_danger</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- ============================================================
+         ESTILOS TÁTICOS & SEGURANÇA (GOE)
+         ============================================================ -->
+
+    <!-- Estilo Tático (GOE) - Para badges de alta prioridade ou identificação de equipe -->
+    <style name="Widget.GestaoRisco.Chip.Tactical" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@color/text_primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Estilo para Avisos de Confidencialidade (Rodapés de Relatórios/Telas) -->
+    <style name="TextAppearance.GestaoRisco.Confidential" parent="TextAppearance.Material3.Label.Small">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+</resources>

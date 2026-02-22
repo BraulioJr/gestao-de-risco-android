@@ -216,8 +216,11 @@ class DashboardFragment : Fragment() {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR"))
         val currencyFormat = java.text.NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
 
-        sb.append("RELATÓRIO DE ANÁLISE ECONÔMICA\n")
-        sb.append("Gerado em: ${dateFormat.format(Date())}\n\n")
+        // Branding
+        sb.append(getString(R.string.report_institution_name)).append("\n")
+        sb.append("RELATÓRIO DE ANÁLISE ECONÔMICA").append("\n")
+        sb.append("${getString(R.string.report_generated_at)} ${dateFormat.format(Date())}\n\n")
+        
         sb.append("RESUMO POR LOJA (RANKING DE PREJUÍZO)\n")
         sb.append("Loja,Valor Total\n")
 
@@ -235,6 +238,11 @@ class DashboardFragment : Fragment() {
             val dateStr = dateTimeFormat.format(Date(item.dataRegistro)) // Usando dataRegistro como exemplo
             sb.append("${escapeCsv(item.loja)},$dateStr,${item.valorEstimado},${escapeCsv(item.categoriaProduto)},${escapeCsv(item.acaoRealizada)},Resolvido,${escapeCsv(item.relato)}\n")
         }
+
+        // Rodapé
+        sb.append("\n")
+        sb.append(escapeCsv(getString(R.string.report_confidentiality))).append("\n")
+        sb.append(escapeCsv(getString(R.string.report_security_warning))).append("\n")
 
         val cachePath = File(requireContext().cacheDir, "exports")
         cachePath.mkdirs()

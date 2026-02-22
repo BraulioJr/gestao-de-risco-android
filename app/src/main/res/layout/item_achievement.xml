@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_achievement"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/spacing_medium"
+    app:cardBackgroundColor="@color/md_theme_surface"
+    app:cardElevation="2dp"
+    app:strokeColor="@color/md_theme_outline"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_medium">
+
+        <ImageView
+            android:id="@+id/img_achievement_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_attach_money"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/gold" />
+
+        <TextView
+            android:id="@+id/tv_achievement_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:gravity="center"
+            android:text="Medalha da Vigilância"
+            android:textAppearance="?attr/textAppearanceLabelLarge"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/img_achievement_icon" />
+
+        <TextView
+            android:id="@+id/tv_achievement_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:text="Previna seu primeiro risco."
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            app:layout_constraintTop_toBottomOf="@+id/tv_achievement_title" />
+
+        <ImageView
+            android:id="@+id/img_lock_overlay"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_cloud_off" 
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/img_achievement_icon"
+            app:layout_constraintEnd_toEndOf="@+id/img_achievement_icon"
+            app:layout_constraintStart_toStartOf="@+id/img_achievement_icon"
+            app:layout_constraintTop_toTopOf="@+id/img_achievement_icon"
+            app:tint="@color/md_theme_error" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -10,9 +10,10 @@
 ![Build](https://img.shields.io/badge/Build-Passing-brightgreen)
 ![Version](https://img.shields.io/badge/Version-1.0.0-blue)
 
-**Plataforma inteligente para Prevenção de Perdas em varejo com IA preditiva, análise em tempo real e sincronização offline-first**
+**Plataforma inteligente para Prevenção de Perdas em varejo com IA preditiva, análise em tempo real e sincronização offline-first.**
 
-[🚀 Início Rápido](#-início-rápido) • [📖 Documentação](#-documentação-completa) • [🏗️ Arquitetura](#-arquitetura) • [💡 Features](#-features-principais) • [🤝 Contribuir](#-contribuindo)
+[Visão Geral](#-visão-geral) • [Features Principais](#-features-principais) • [Arquitetura](#-arquitetura) • [Tech Stack](#-tech-stack) • [Início Rápido](#-início-rápido) • [Estrutura do Projeto](#-estrutura-do-projeto) • [Documentação Completa](#-documentação-completa) • [Roadmap](#-roadmap) • [Contribuindo](#-contribuindo) • [Licença](#-licença) • [README Técnico](#-leia-o-readme-técnico) • [Documento para Investidores](#-documento-para-investidores)
+
 
 </div>
 
@@ -28,6 +29,8 @@
 - [Estrutura do Projeto](#-estrutura-do-projeto)
 - [Documentação Completa](#-documentação-completa)
 - [Roadmap](#-roadmap)
+- [Leia o README Técnico](#-leia-o-readme-técnico)
+- [Documento para Investidores](#-documento-para-investidores)
 - [Contribuindo](#-contribuindo)
 - [Licença](#-licença)
 
@@ -57,6 +60,46 @@
 - **Scoring de Risco** - Cada incidente recebe score de confiança e probabilidade
 - **Aprendizado Contínuo** - Dados alimentam retreinamento mensal do modelo
 
+### ⚔️ Inteligência de Campo & Relatórios Táticos
+- **SITREP (Situation Report)** - Geração automática de relatórios baseados no protocolo **SALUTE** (Size, Activity, Location, Unit, Time, Equipment).
+- **Formatação Tática** - Uso de **DTG (Date-Time Group)** padrão OTAN e simulação de coordenadas **MGRS** para precisão operacional.
+- **Modo Furtivo (Stealth)** - Interface de baixa luminosidade com feedback tátil para operações discretas.
+- **Gatilho Tático** - Acionamento rápido de envio de inteligência via hardware keys ou gestos específicos.
+- **Coleta Estruturada** - Interface otimizada para registro rápido de Movimentação, Alvos, Riscos, Recursos e Equipamentos.
+- **Decodificador SITREP** - Ferramenta dedicada para o comando descriptografar relatórios de campo recebidos, garantindo a integridade da informação.
+- **Assinatura Digital** - Hashing SHA-256 automático em todos os relatórios para garantir cadeia de custódia e auditoria.
+- **Manobra Tática (QRF)** - Algoritmo de despacho que calcula a unidade mais próxima (Blue Force Tracking) e estima o ETA para neutralização rápida.
+
+```mermaid
+sequenceDiagram
+    participant User as Operador
+    participant App as ReconActivity
+    participant Utils as TacticalUtils
+    participant System as Android System
+
+    User->>App: Gatilho Tático (Long Press)
+    activate App
+    
+    Note right of App: Geração do SITREP
+    App->>App: Consolidar Logs Recentes
+    
+    loop Protocolo SALUTE
+        App->>Utils: Formatar DTG (Zulu Time)
+        Utils-->>App: Ex: 271530ZJAN26
+        App->>App: Estruturar (Size, Activity, Location...)
+    end
+
+    Note right of App: Segurança (AES-128)
+    App->>Utils: Criptografar Relatório
+    Utils-->>App: Payload Cifrado
+    
+    App->>System: Copiar para Clipboard (Redundância)
+    App->>System: Intent ACTION_SEND
+    deactivate App
+    
+    System-->>User: Selecionar Canal Seguro
+```
+
 ### 📊 Dashboard Analytics Avançado
 - **Mancha Criminal (Bubble Chart)** - Identifica hotspots de risco (horário × produto × frequência)
 - **Análise Econômica** - Quantifica prejuízo financeiro por loja/categoria
@@ -71,6 +114,38 @@
 - **Conformidade LGPD** - Metadata de consentimento e direitos de dados
 - **Criptografia em Trânsito** - TLS/SSL para todas as conexões Firebase
 - **Proteção Biométrica** - Fingerprint/Face ID para acessar configurações e exportações
+- **Evidence Vault** - Isolamento de mídia em armazenamento interno privado (`.secure_evidence_vault`), prevenindo acesso por outros apps ou galeria do sistema.
+- **Panic Protocol** - Monitoramento de acelerômetro (Shake Detection) para destruição de emergência de dados sensíveis locais em caso de coação física.
+- **Criptografia de Dados Operacionais** - Logs de reconhecimento (`ReconLog`) são criptografados localmente com **AES-128** via `TacticalUtils` antes da persistência.
+- **Sanitização de Dados (Data Wiping)** - Implementação de sobrescrita de arquivos (Zeroing + Random) antes da deleção no `EvidenceVault`, mitigando recuperação forense de dados.
+
+```mermaid
+sequenceDiagram
+    participant User as Operador
+    participant Sensor as Acelerômetro
+    participant App as ReconActivity
+    participant Vault as EvidenceVault
+    participant System as Android OS
+
+    User->>Sensor: Agitar Dispositivo (Shake)
+    Sensor->>App: onSensorChanged (G-Force > 2.7g)
+    
+    activate App
+    Note right of App: Detecção de Pânico
+    App->>App: Validar Threshold & Debounce
+    
+    critical Protocolo de Destruição
+        App->>Vault: destruirEvidencias()
+        Vault->>Vault: sanitizarArquivo() (Overwrite 0x00 -> Random)
+        Vault->>System: delete()
+        System-->>Vault: Confirmação
+        Vault-->>App: Sucesso
+    end
+    
+    App->>System: Vibrar (Feedback Tátil)
+    App->>System: finishAffinity() (Kill App)
+    deactivate App
+```
 
 ### 🔄 Sincronização Offline-First
 - **Room Local Database** - Banco SQLite com migrations automáticas
@@ -96,6 +171,16 @@
 - **Google Maps Integration** - Visualização de hotspots geográficos
 - **Clustering** - Agrupa incidentes por região automaticamente
 - **Heat Maps** - Densidade visual de risco por área
+
+### 🎲 Gamificação (Engine Tática)
+Inspirado nos princípios de "A Arte da Guerra" de Sun Tzu, o Gestão de Risco transcende a ferramenta de trabalho para se tornar uma plataforma de engajamento e maestria.
+
+- **Perfil de Estrategista e Patentes:** Cada usuário possui um perfil que exibe sua patente (de `Recruta` a `General Estrategista`), pontos de experiência (XP), medalhas e estatísticas de desempenho.
+- **As 13 Campanhas (Missões):** Um sistema de missões baseado nos 13 capítulos de "A Arte da Guerra", que treinam o usuário em uma faceta da prevenção de perdas.
+- **Medalhas de Honra (Conquistas):** Conquistas concedidas por feitos notáveis, como "Primeira Prevenção Bem-Sucedida" ou "Relatório 100% Completo".
+- **Conselho de Guerra (Placares de Líderes):** Placares de líderes semanais e mensais que classificam indivíduos e equipes.
+- **Arsenal (Customização):** Pontos de experiência podem ser usados para desbloquear itens cosméticos, como temas de interface e sons de notificação.
+- **Rede de Inteligência (Comunidade):** Uma área onde os usuários podem compartilhar e avaliar táticas de risco observadas em campo, ganhando XP por contribuições valiosas.
 
 ---
 
@@ -561,6 +646,15 @@ utils/
 │   ├── Template handling
 │   └── Content injection
 │
+├── TacticalUtils.kt ........ Ferramentas Militares
+│   ├── AES Encryption (Logs)
+│   ├── DTG Formatting (Zulu Time)
+│   └── MGRS Coordinates
+│
+├── EvidenceVault.kt ........ Segurança de Mídia
+│   ├── Secure Storage Move
+│   └── Emergency Wipe (Panic)
+│
 ├── RiskClusterRenderer.kt .. Clustering no Maps
 │   ├── ClusterItem rendering
 │   └── CustomMarkerView
@@ -774,6 +868,18 @@ adb shell dumpsys package com.example...  # Info do package
 - [ ] Publicação em Play Store
 - [ ] Analytics real-time
 - [ ] Crash reporting (Crashlytics)
+
+---
+
+## 📖 Leia o README Técnico
+
+Para uma imersão profunda nos detalhes de engenharia, arquitetura e implementação, consulte o **[README_TECNICO.md](README_TECNICO.md)**.
+
+---
+
+## 💰 Documento para Investidores
+
+Para uma análise do potencial de mercado, modelo de negócio e proposta de valor para stakeholders, acesse o **[INVESTOR_DOCUMENT.md](INVESTOR_DOCUMENT.md)**.
 
 ---
 

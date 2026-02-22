@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_toggle_mode"
+        android:icon="@drawable/ic_shield_graph"
+        android:title="Alternar Modo Tático"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_recon"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="Inteligência de Campo"
+        app:showAsAction="never" />
+</menu>

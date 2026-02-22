@@ -7,12 +7,15 @@ Date: 27 de Janeiro de 2026
 APK Gerado: app/build/outputs/apk/debug/app-debug.apk (12 MB)
 
 ================================================================================
-                    ��� GUIAS DE REFERÊNCIA RÁPIDA
+                    ��� GUIAS DE REFERÊNCIA RÁPIDA
 ================================================================================
 
 COMECE AQUI:
 ├─ START_HERE.md ........................... Leia PRIMEIRO (visão geral)
 ├─ PROJECT_COMPLETION_SUMMARY.md ......... Resumo executivo (você está aqui!)
+├─ README.md ............................... Visão Executiva e Gamificação
+├─ README_PROFESSIONAL.md .................. Visão Abrangente (Técnico/Negócio)
+├─ INVESTOR_DOCUMENT.md .................... Proposta de Investimento
 └─ ORACLE_VM_SETUP.md ..................... Setup Oracle VM/Genymotion
 
 REFERÊNCIA TÉCNICA:
@@ -21,15 +24,27 @@ REFERÊNCIA TÉCNICA:
 ├─ INSTALLATION_GUIDE.pt-BR.md ........... Guia em português
 └─ .github/copilot-instructions.md ....... Arquitetura SaaS (360+ KB)
 
+DOCUMENTOS DE ENGENHARIA:
+├─ README_TECNICO.md ....................... Detalhes de Implementação
+├─ DATABASE_MODEL.md ....................... Modelo de Banco de Dados (Room)
+└─ XP_MATHEMATICAL_MODEL.md ................ Modelo Matemático de XP
+├─ ROADMAP_TECNICO.md ...................... Roadmap de 12 Meses (IA & SaaS)
+
+NEGÓCIOS & INVESTIMENTO (VC PACK):
+├─ ARCHITECTURE_SAAS.md .................... Arquitetura Visual Escalável
+├─ FINANCIAL_MODEL.md ...................... Projeções Financeiras & Valuation
+├─ INVESTMENT_MEMO.md ...................... Tese de Investimento (Pitch)
+└─ VC_DATA_ROOM.md ......................... Estrutura para Due Diligence
+
 AUTOMAÇÃO:
 ├─ test-apk.bat ........................... Teste automático
 └─ install-apk.bat ........................ Instalação rápida
 
 ================================================================================
-                    ���️ NAVEGAÇÃO POR DOCUMENTO
+                    ���️ NAVEGAÇÃO POR DOCUMENTO
 ================================================================================
 
-1. START_HERE.md (��� RECOMENDADO PRIMEIRO)
+1. START_HERE.md (��� RECOMENDADO PRIMEIRO)
    ├─ Situação atual do projeto
    ├─ Artefatos gerados
    ├─ 3 opções de instalação (Genymotion, Oracle VM, Android Emulator)
@@ -137,13 +152,18 @@ ORACLE_VM_SETUP.md ................... 15 minutos (setup detalhado)
 INSTALLATION_GUIDE.pt-BR.md ......... 10 minutos (português)
 FINAL_STATUS.txt ..................... 15 minutos (técnico)
 BUILD_SUMMARY.md ..................... 5 minutos (resumo técnico)
+README_TECNICO.md .................... 20 minutos (detalhes de engenharia)
+DATABASE_MODEL.md .................... 10 minutos (modelo de dados)
+XP_MATHEMATICAL_MODEL.md ............. 5 minutos (lógica de gamificação)
+ROADMAP_TECNICO.md ................... 10 minutos (planejamento estratégico)
+FINANCIAL_MODEL.md ................... 10 minutos (projeções financeiras)
 .github/copilot-instructions.md .... 30 minutos (arquitetura completa)
 
 TOTAL RECOMENDADO: 30 minutos (leitura rápida)
 TOTAL COMPLETO: 60+ minutos (leitura detalhada)
 
 ================================================================================
-                    ��� PRÓXIMAS AÇÕES EM 3 PASSOS
+                    ��� PRÓXIMAS AÇÕES EM 3 PASSOS
 ================================================================================
 
 PASSO 1: Leia START_HERE.md (5 minutos) ..................... ✅ AGORA
@@ -188,7 +208,7 @@ NEXT PHASE (Seu turno):
 ⏳ Release APK assinado
 
 ================================================================================
-                    ��� REFERÊNCIA RÁPIDA DE LINKS
+                    ��� REFERÊNCIA RÁPIDA DE LINKS
 ================================================================================
 
 Android Docs:              https://developer.android.com/
@@ -206,7 +226,7 @@ Android SDK Manager:       (abra em Android Studio)
 VirtualBox:                https://www.virtualbox.org/
 
 ================================================================================
-                    ��� DICAS PROFISSIONAIS
+                    ��� DICAS PROFISSIONAIS
 ================================================================================
 
 INSTALAÇÃO:
@@ -228,27 +248,27 @@ DESENVOLVIMENTO:
 5. Valide isolamento multi-tenant em TODAS as queries Room
 
 ================================================================================
-                    ��� ESTRUTURA DE PASTAS GERADA
+                    ��� ESTRUTURA DE PASTAS GERADA
 ================================================================================
 
 Project_GestaoDeRisco/
-├─ ��� START_HERE.md ................................. ⭐ LEIA PRIMEIRO
-├─ ��� PROJECT_COMPLETION_SUMMARY.md ................ Resumo executivo
-├─ ��� ORACLE_VM_SETUP.md ........................... Setup detalhado
-├─ ��� INSTALLATION_GUIDE.pt-BR.md ................. Português
-├─ ��� FINAL_STATUS.txt ............................. Relatório técnico
-├─ ��� BUILD_SUMMARY.md ............................. Resumo técnico
-├─ ��� DOCUMENTATION_INDEX.txt ....................... Este arquivo
-├─ ��� test-apk.bat ................................. Teste automático
-├─ ��� install-apk.bat .............................. Instalação rápida
+├─ ��� START_HERE.md ................................. ⭐ LEIA PRIMEIRO
+├─ ��� PROJECT_COMPLETION_SUMMARY.md ................ Resumo executivo
+├─ ��� ORACLE_VM_SETUP.md ........................... Setup detalhado
+├─ ��� INSTALLATION_GUIDE.pt-BR.md ................. Português
+├─ ��� FINAL_STATUS.txt ............................. Relatório técnico
+├─ ��� BUILD_SUMMARY.md ............................. Resumo técnico
+├─ ��� DOCUMENTATION_INDEX.txt ....................... Este arquivo
+├─ ��� test-apk.bat ................................. Teste automático
+├─ ��� install-apk.bat .............................. Instalação rápida
 │
-├─ ��� app/build/outputs/apk/debug/
-│  └─ ��� app-debug.apk (12 MB) ..................... SEU APK COMPILADO
+├─ ��� app/build/outputs/apk/debug/
+│  └─ ��� app-debug.apk (12 MB) ..................... SEU APK COMPILADO
 │
-├─ ��� .github/
-│  └─ ��� copilot-instructions.md .................. Arquitetura (360+ KB)
+├─ ��� .github/
+│  └─ ��� copilot-instructions.md .................. Arquitetura (360+ KB)
 │
-└─ ��� app/src/main/
+└─ ��� app/src/main/
    ├─ java/com/example/project_gestoderisco/
    │  ├─ auth/ ....................................... Auth components
    │  ├─ data/local/ .................................. Room database
@@ -269,7 +289,7 @@ Project_GestaoDeRisco/
       └─ values/ ...................................... Strings, colors, themes
 
 ================================================================================
-                    ��� ESTRUTURA DO PROJETO
+                    ��� ESTRUTURA DO PROJETO
 ================================================================================
 
 ARQUITETURA:        MVVM + Repository Pattern + Offline-First
@@ -323,7 +343,7 @@ Tudo que você precisa está pronto:
 
 Próxima ação: Leia START_HERE.md e instale em seu emulador!
 
-Boa sorte com seu projeto SaaS! ���
+Boa sorte com seu projeto SaaS! ���
 
 ================================================================================
                     Gerado: 27 de Janeiro de 2026

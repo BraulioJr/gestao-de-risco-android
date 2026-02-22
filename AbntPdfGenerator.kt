@@ -38,6 +38,7 @@ class AbntPdfGenerator(private val context: Context) {
         val canvasCapa = pageCapa.canvas
 
         drawCover(canvasCapa, paint)
+        drawFooter(canvasCapa, paint) // Rodapé na capa também
         document.finishPage(pageCapa)
 
         // --- 2. CONTEÚDO (Elemento Textual) ---
@@ -63,6 +64,7 @@ class AbntPdfGenerator(private val context: Context) {
         for (item in dataList) {
             // Verifica se cabe na página, senão cria nova
             if (currentY > PAGE_HEIGHT - MARGIN_BOTTOM - 100) {
+                drawFooter(canvas, paint)
                 document.finishPage(page)
                 pageNumber++
                 pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNumber).create()
@@ -86,6 +88,7 @@ class AbntPdfGenerator(private val context: Context) {
             currentY += 20 // Espaço entre itens
         }
 
+        drawFooter(canvas, paint)
         document.finishPage(page)
 
         // Salva e fecha
@@ -132,6 +135,29 @@ class AbntPdfGenerator(private val context: Context) {
         
         // Reset Align
         paint.textAlign = Paint.Align.LEFT
+    }
+
+    private fun drawFooter(canvas: Canvas, paint: Paint) {
+        val originalAlign = paint.textAlign
+        val originalSize = paint.textSize
+        val originalTypeface = paint.typeface
+
+        paint.textAlign = Paint.Align.CENTER
+        paint.textSize = 9f
+        paint.typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.ITALIC)
+        paint.color = Color.DKGRAY
+
+        val centerX = PAGE_WIDTH / 2f
+        val y = PAGE_HEIGHT - MARGIN_BOTTOM + 15f
+
+        canvas.drawText(context.getString(R.string.report_confidentiality), centerX, y, paint)
+        canvas.drawText(context.getString(R.string.report_security_warning), centerX, y + 10, paint)
+
+        // Restaura estado original
+        paint.textAlign = originalAlign
+        paint.textSize = originalSize
+        paint.typeface = originalTypeface
+        paint.color = Color.BLACK
     }
 
     // Função auxiliar para quebrar texto em múltiplas linhas

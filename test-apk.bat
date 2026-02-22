@@ -1,132 +1,77 @@
 @echo off
-REM ========================================================
-REM Gestão de Risco - APK Tester Script
-REM ========================================================
-REM Este script testa automaticamente o APK gerado
-REM Funciona com Genymotion, Oracle VM ou Android Emulator
-
-setlocal enabledelayedexpansion
-
-REM Cores para output
-set COLOR_SUCCESS=[92m
-set COLOR_ERROR=[91m
-set COLOR_INFO=[94m
-set COLOR_RESET=[0m
-
-echo.
-echo ==================================================
-echo    Gestão de Risco - APK Tester
-echo ==================================================
-echo.
-
-REM Verifica se ADB está disponível
-echo [*] Verificando ADB...
-where adb >nul 2>&1
-if errorlevel 1 (
-    echo [ERROR] ADB não encontrado no PATH
-    echo Adicione Android SDK ao PATH e tente novamente
-    echo PATH esperado: C:\Users\user\AppData\Local\Android\Sdk\platform-tools
-    pause
-    exit /b 1
-)
-echo [OK] ADB disponível
-
-REM Caminhos
+:: Define o pacote para evitar repetições
+set PKG=com.example.project_gestoderisco
 set APK_PATH=app\build\outputs\apk\debug\app-debug.apk
-set PACKAGE_NAME=com.example.project_gestoderisco
-set MAIN_ACTIVITY=%PACKAGE_NAME%/.MainActivity
 
-REM Verifica se APK existe
-echo.
-echo [*] Verificando APK...
-if not exist "!APK_PATH!" (
-    echo [ERROR] APK não encontrado em !APK_PATH!
-    echo Execute primeiro: gradlew assembleDebug
-    pause
-    exit /b 1
-)
-echo [OK] APK encontrado (!APK_PATH!)
+echo ==========================================
+echo       GESTAO DE RISCO - AUTO TEST
+echo ==========================================
 
-REM Aguarda dispositivo
-echo.
-echo [*] Aguardando dispositivo...
-echo Se nenhum dispositivo aparecer, inicie seu emulador:
-echo   - Genymotion
-echo   - Android Emulator
-echo   - Oracle VM
-echo.
-
-REM Loop para aguardar conexão
-set TIMEOUT=0
-:wait_device
-adb devices | find /v "List" | find /v "^$" >nul
-if errorlevel 1 (
-    if !TIMEOUT! equ 0 echo [AGUARDANDO]
-    set /a TIMEOUT=TIMEOUT+1
-    if !TIMEOUT! gtr 30 (
-        echo [ERROR] Nenhum dispositivo conectado após 30 segundos
-        echo Dicas de troubleshooting:
-        echo 1. Inicie Genymotion ou Android Emulator
-        echo 2. Se usando Genymotion, execute: adb connect 127.0.0.1:5555
-        echo 3. Verifique: adb devices
-        pause
-        exit /b 1
+:: Configurar ADB Automaticamente
+set ADB_CMD=adb
+where adb >nul 2>nul
+if %ERRORLEVEL% NEQ 0 (
+    if exist "%LOCALAPPDATA%\Android\Sdk\platform-tools\adb.exe" (
+        set ADB_CMD="%LOCALAPPDATA%\Android\Sdk\platform-tools\adb.exe"
+        echo [i] ADB encontrado em: %LOCALAPPDATA%\Android\Sdk\platform-tools\adb.exe
+    ) else (
+        echo [!] ADB nao encontrado. Verifique se o Android SDK esta instalado.
     )
-    timeout /t 1 /nobreak
-    goto wait_device
 )
-echo [OK] Dispositivo conectado!
 
-REM Listar dispositivos
-echo.
-echo [*] Dispositivos conectados:
-adb devices
+:: 1. Verificação de Dispositivo
+echo [1/4] Verificando dispositivos...
+echo     [Aguardando dispositivo... Abra o emulador se nao estiver rodando]
+%ADB_CMD% wait-for-device
+%ADB_CMD% devices
 
-REM Instalar APK
+:: 2. Build e Instalação
 echo.
-echo [*] Instalando APK...
-adb install -r "!APK_PATH!"
-if errorlevel 1 (
-    echo [ERROR] Falha na instalação do APK
-    echo Dicas:
-    echo - Limpe dados: adb shell pm clear !PACKAGE_NAME!
-    echo - Desinstale: adb uninstall !PACKAGE_NAME!
-    echo - Tente novamente: adb install -r !APK_PATH!
+echo [2/4] Compilando (Build)...
+call .\gradlew.bat assembleDebug
+if %ERRORLEVEL% NEQ 0 (
+    echo [!] Erro na compilacao. Abortando.
     pause
     exit /b 1
 )
-echo [OK] APK instalado com sucesso!
 
-REM Verificar instalação
-echo.
-echo [*] Verificando instalação...
-adb shell pm list packages | find "!PACKAGE_NAME!" >nul
-if errorlevel 1 (
-    echo [WARNING] App não aparece na lista de pacotes
-) else (
-    echo [OK] App verificado na lista de pacotes
-)
+echo [2.1/4] Instalando APK...
 
-REM Iniciar app
-echo.
-echo [*] Iniciando aplicativo...
-adb shell am start -n "!MAIN_ACTIVITY!"
-if errorlevel 1 (
-    echo [WARNING] Erro ao iniciar app via adb
-    echo Dicas:
-    echo - Tente iniciar manualmente do device
-    echo - Verifique logs: adb logcat
-) else (
-    echo [OK] App iniciado!
+if not exist "%APK_PATH%" (
+    echo [!] ERRO CRITICO: A compilacao falhou ou o APK nao foi gerado.
     echo.
-    echo [*] Monitorando logs (pressione Ctrl+C para parar)...
-    adb logcat | find /i "gestaoderisco"
+    echo [DICA DE CORRECAO]
+    echo Se o erro for "The KSP plugin was detected... task class could not be found":
+    echo 1. Abra o arquivo build.gradle.kts da RAIZ (fora da pasta app)
+    echo 2. Adicione: alias(libs.plugins.ksp) apply false no bloco plugins {}
+    echo Verifique os logs acima para corrigir o erro.
+    pause
+    exit /b 1
 )
 
-echo.
-echo ==================================================
-echo    Teste concluído!
-echo ==================================================
-echo.
+%ADB_CMD% install -r "%APK_PATH%"
+if %ERRORLEVEL% NEQ 0 (
+    echo [!] Falha na instalacao. Tentando desinstalar e instalar de novo...
+    %ADB_CMD% uninstall %PKG%
+    %ADB_CMD% install -r "%APK_PATH%"
+)
 
+:: 3. Inicialização
+echo.
+echo [3/4] Iniciando App...
+%ADB_CMD% shell am start -n %PKG%/.view.MainActivity
+if %ERRORLEVEL% NEQ 0 (
+    %ADB_CMD% shell am start -n %PKG%/.MainActivity
+)
+
+:: 4. Logs e Trava de Janela
+echo.
+echo [4/4] Monitorando Logs (Pressione Ctrl+C para parar)...
+echo ------------------------------------------
+%ADB_CMD% logcat -c
+%ADB_CMD% logcat -v time | findstr /i "%PKG%"
+
+:: Se o logcat for interrompido, a janela permanece aberta
+echo.
+echo Execucao finalizada ou interrompida.
 pause

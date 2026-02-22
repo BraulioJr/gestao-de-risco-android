@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- PALETA DE CORES PROFISSIONAL - GESTÃO DE RISCO -->
+
+    <!-- 1. Cor Primária (Confiança e Identidade) -->
+    <color name="primary_blue">#004AAD</color>
+
+    <!-- 2. Cores de Suporte (Estrutura e Legibilidade) -->
+    <color name="text_primary">#1A202C</color> <!-- Para textos e títulos principais -->
+    <color name="text_secondary">#4A5568</color> <!-- Para textos secundários, legendas e ícones -->
+    <color name="border_divider">#E2E8F0</color> <!-- Para bordas e divisórias -->
+    <color name="background_main">#F7FAFC</color> <!-- Fundo principal da UI (Off-white) -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!-- 3. Cores de Ação e Feedback (Usabilidade e Alertas) -->
+    <color name="status_success">#38A169</color> <!-- Verde: Sucesso, Resolvido -->
+    <color name="status_warning">#DD6B20</color> <!-- Laranja: Alerta, Risco Médio -->
+    <color name="status_danger">#E53E3E</color> <!-- Vermelho: Erro, Risco Crítico -->
+
+</resources>

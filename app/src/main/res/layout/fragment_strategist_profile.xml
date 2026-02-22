@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_theme_background"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/spacing_xlarge">
+
+        <!-- Header: Patente e XP -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_profile_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_large"
+            app:cardBackgroundColor="@color/md_theme_surface"
+            app:cardElevation="4dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_large">
+
+                <ImageView
+                    android:id="@+id/img_rank_insignia"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/gamification_rank"
+                    android:src="@drawable/ic_splash_logo"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/md_theme_primary" />
+
+                <TextView
+                    android:id="@+id/tv_rank_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_large"
+                    android:text="@string/rank_recruit"
+                    android:textAppearance="?attr/textAppearanceTitleLarge"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/img_rank_insignia"
+                    app:layout_constraintTop_toTopOf="@id/img_rank_insignia" />
+
+                <TextView
+                    android:id="@+id/tv_xp_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="0 XP"
+                    android:textAppearance="?attr/textAppearanceLabelLarge"
+                    android:textColor="@color/md_theme_secondary"
+                    app:layout_constraintStart_toStartOf="@id/tv_rank_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_rank_title" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progress_xp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:max="100"
+                    android:progress="25"
+                    app:indicatorColor="@color/md_theme_primary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_rank_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_xp_value"
+                    app:trackCornerRadius="4dp" />
+
+                <TextView
+                    android:id="@+id/tv_next_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Próximo: Sentinela"
+                    android:textAppearance="?attr/textAppearanceBodySmall"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/progress_xp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Seção: Campanhas (Missões) -->
+        <TextView
+            android:id="@+id/tv_missions_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_xlarge"
+            android:text="@string/gamification_missions_title"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_profile_header" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_missions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:clipToPadding="false"
+            android:paddingHorizontal="@dimen/spacing_large"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/tv_missions_header"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_risk" />
+
+        <!-- Seção: Medalhas de Honra -->
+        <TextView
+            android:id="@+id/tv_achievements_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_xlarge"
+            android:text="@string/gamification_achievements_title"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_missions" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_achievements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:clipToPadding="false"
+            android:paddingHorizontal="@dimen/spacing_large"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/tv_achievements_header"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_risk" />
+            <!-- Nota: Em produção, criar um layout específico item_achievement.xml -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,21 +1,29 @@
 package com.example.gestaoderisco
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
+import android.media.AudioManager
+import android.media.ToneGenerator
 import android.os.Bundle
 import android.os.Environment
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.gestaoderisco.data.AppDatabase
 import com.example.gestaoderisco.model.Ocorrencia
+import com.example.gestaoderisco.view.ReconActivity
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.BubbleChart
 import com.github.mikephil.charting.charts.LineChart
@@ -75,6 +83,9 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
         pieChart = findViewById(R.id.pieChartShoplifter)
         barChart = findViewById(R.id.barChartFinancial)
         lineChart = findViewById(R.id.lineChartEvolution)
@@ -98,6 +109,26 @@ class DashboardActivity : AppCompatActivity() {
         
         // Carrega dados iniciais (Todos)
         loadDashboardData(Periodo.TODOS)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.dashboard_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_toggle_mode -> {
+                val newMode = if (isTacticalMode()) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+                AppCompatDelegate.setDefaultNightMode(newMode)
+                true
+            }
+            R.id.action_recon -> {
+                startActivity(Intent(this, ReconActivity::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun setupPeriodFilter() {
@@ -131,6 +162,11 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
+    private fun isTacticalMode(): Boolean {
+        val nightModeFlags = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES
+    }
+
     private fun loadDashboardData(periodo: Periodo) {
         lifecycleScope.launch(Dispatchers.IO) {
             val db = AppDatabase.getDatabase(applicationContext)
@@ -156,6 +192,7 @@ class DashboardActivity : AppCompatActivity() {
                 setupLineChart(filteredOcorrencias)
                 setupScatterChart(filteredOcorrencias)
                 setupBubbleChart(filteredOcorrencias)
+                if (isTacticalMode()) playRadarSound()
             }
         }
     }
@@ -198,6 +235,15 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
+    private fun playRadarSound() {
+        try {
+            val toneGen = ToneGenerator(AudioManager.STREAM_MUSIC, 80)
+            toneGen.startTone(ToneGenerator.TONE_CDMA_PIP, 150)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     private fun setupPieChart(ocorrencias: List<Ocorrencia>) {
         // Agora usando o campo correto 'perfilFurtante'
         val map = ocorrencias
@@ -217,14 +263,17 @@ class DashboardActivity : AppCompatActivity() {
         val dataSet = PieDataSet(entries, "")
         dataSet.colors = colors
         dataSet.valueTextSize = 12f
-        dataSet.valueTextColor = Color.WHITE
+        dataSet.valueTextColor = if (isTacticalMode()) Color.BLACK else Color.WHITE // Contraste interno
         dataSet.valueFormatter = PercentFormatter(pieChart)
 
         val data = PieData(dataSet)
         pieChart.data = data
         pieChart.setUsePercentValues(true)
         pieChart.description.isEnabled = false
-        pieChart.legend.isEnabled = true
+        pieChart.legend.isEnabled = !isTacticalMode() // Oculta legenda no modo tático para limpar a visão
+        pieChart.setEntryLabelColor(if (isTacticalMode()) Color.WHITE else Color.BLACK)
+        pieChart.holeRadius = if (isTacticalMode()) 45f else 50f
+        pieChart.setHoleColor(Color.TRANSPARENT)
         pieChart.animateY(1400)
         pieChart.invalidate()
     }
@@ -247,7 +296,11 @@ class DashboardActivity : AppCompatActivity() {
 
         val dataSet = BarDataSet(entries, "Prejuízo Total")
         dataSet.colors = ColorTemplate.MATERIAL_COLORS.toList()
+        if (isTacticalMode()) {
+            dataSet.color = Color.parseColor("#E53E3E") // Vermelho Tático
+        }
         dataSet.valueTextSize = 12f
+        dataSet.valueTextColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
         
         // Formata valor como Moeda (R$)
         val currencyFormatter = object : ValueFormatter() {
@@ -260,6 +313,10 @@ class DashboardActivity : AppCompatActivity() {
         barChart.data = data
         barChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
         barChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        barChart.xAxis.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
+        barChart.axisLeft.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
+        barChart.axisRight.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
+        barChart.legend.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
         barChart.axisLeft.valueFormatter = currencyFormatter
         barChart.animateY(1500)
         barChart.invalidate()
@@ -283,15 +340,15 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         val dataSet = LineDataSet(entries, "Evolução do Prejuízo (R$)")
-        dataSet.color = Color.BLUE
-        dataSet.valueTextColor = Color.BLACK
+        dataSet.color = if (isTacticalMode()) Color.parseColor("#E53E3E") else Color.BLUE
+        dataSet.valueTextColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
         dataSet.lineWidth = 2f
         dataSet.circleRadius = 4f
-        dataSet.setCircleColor(Color.BLUE)
+        dataSet.setCircleColor(if (isTacticalMode()) Color.RED else Color.BLUE)
         dataSet.setDrawValues(false) // Oculta valores em cada ponto para não poluir
         dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER // Linha curva suave
         dataSet.setDrawFilled(true) // Preenchimento abaixo da linha
-        dataSet.fillColor = Color.CYAN
+        dataSet.fillColor = if (isTacticalMode()) Color.RED else Color.CYAN
         dataSet.fillAlpha = 50
 
         val data = LineData(dataSet)
@@ -301,6 +358,10 @@ class DashboardActivity : AppCompatActivity() {
         lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
         lineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
         lineChart.xAxis.granularity = 1f
+        lineChart.xAxis.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
+        lineChart.axisLeft.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
+        lineChart.axisRight.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
+        lineChart.legend.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
         
         // Configura o Marcador (Tooltip)
         val marker = CustomMarkerView(this, R.layout.custom_marker_view)
@@ -325,7 +386,7 @@ class DashboardActivity : AppCompatActivity() {
 
         val dataSet = ScatterDataSet(entries, "Horário x Valor")
         dataSet.setScatterShape(ScatterChart.ScatterShape.CIRCLE)
-        dataSet.color = Color.MAGENTA
+        dataSet.color = if (isTacticalMode()) Color.parseColor("#DD6B20") else Color.MAGENTA // Laranja Tático
         dataSet.scatterShapeSize = 15f
         dataSet.setDrawValues(false)
 
@@ -337,6 +398,10 @@ class DashboardActivity : AppCompatActivity() {
         scatterChart.xAxis.axisMinimum = 0f
         scatterChart.xAxis.axisMaximum = 24f
         scatterChart.xAxis.granularity = 1f
+        scatterChart.xAxis.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
+        scatterChart.axisLeft.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
+        scatterChart.axisRight.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
+        scatterChart.legend.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
 
         scatterChart.description.isEnabled = false
         scatterChart.animateXY(1500, 1500)
@@ -365,7 +430,7 @@ class DashboardActivity : AppCompatActivity() {
         val dataSet = BubbleDataSet(entries, "Intensidade (Dia x Hora)")
         dataSet.colors = ColorTemplate.MATERIAL_COLORS.toList()
         dataSet.valueTextSize = 10f
-        dataSet.valueTextColor = Color.WHITE
+        dataSet.valueTextColor = if (isTacticalMode()) Color.BLACK else Color.WHITE
         dataSet.highlightCircleWidth = 1.5f
 
         val data = BubbleData(dataSet)
@@ -378,6 +443,10 @@ class DashboardActivity : AppCompatActivity() {
         bubbleChart.xAxis.granularity = 1f
         bubbleChart.xAxis.axisMinimum = -0.5f
         bubbleChart.xAxis.axisMaximum = 6.5f
+        bubbleChart.xAxis.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
+        bubbleChart.axisLeft.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
+        bubbleChart.axisRight.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
+        bubbleChart.legend.textColor = if (isTacticalMode()) Color.WHITE else Color.BLACK
 
         bubbleChart.description.isEnabled = false
         bubbleChart.animateXY(1500, 1500)

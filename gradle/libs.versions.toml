@@ -1,8 +1,8 @@
 
 [versions]
-androidApplication = "8.13.2"
-kotlinAndroid = "1.9.22"
-ksp = "1.9.22-1.0.17"
+androidApplication = "9.0.0"
+kotlinAndroid = "2.2.10"
+ksp = "2.3.2"
 googleGmsServices = "4.4.2"
 hilt = "2.51.1"
 coreSplashscreen = "1.0.1"
@@ -65,7 +65,8 @@ turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplication" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroid" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 google-gms-services = { id = "com.google.gms.google-services", version.ref = "googleGmsServices" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlinAndroid" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ksp = { id = "com.google.devtools.ksp", version = "2.0.0-1.0.21" }
+

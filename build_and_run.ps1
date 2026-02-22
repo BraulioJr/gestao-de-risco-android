@@ -10,7 +10,7 @@ Write-Host ""
 $projectDir = "C:\Users\user\AndroidStudioProjects\Project_GestaoDeRisco"
 $gradleWrapper = "$projectDir\gradlew.bat"
 $appPackage = "com.example.project_gestoderisco"
-$mainActivity = "$appPackage.view.LoginActivity"
+$mainActivity = "$appPackage.view.SplashActivity"
 $apkPath = "$projectDir\app\build\outputs\apk\debug\app-debug.apk"
 
 # Step 1: Limpar e compilar

@@ -8,12 +8,15 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.gestaoderisco.models.Ocorrencia
+import com.example.gestaoderisco.models.ReconLog
 import com.example.gestaoderisco.data.local.OcorrenciaDao
+import com.example.gestaoderisco.data.local.ReconLogDao
 
-@Database(entities = [Ocorrencia::class], version = 4)
+@Database(entities = [Ocorrencia::class, ReconLog::class], version = 5)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun ocorrenciaDao(): OcorrenciaDao
+    abstract fun reconLogDao(): ReconLogDao
 
     companion object {
         @Volatile
@@ -40,10 +43,16 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        private val MIGRATION_4_5 = object : Migration(4, 5) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE IF NOT EXISTS `recon_logs` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `timestamp` INTEGER NOT NULL, `message` TEXT NOT NULL, `type` TEXT NOT NULL, `attachmentPath` TEXT)")
+            }
+        }
+
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "gestao_risco_db")
-                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                     .build()
                 INSTANCE = instance
                 instance

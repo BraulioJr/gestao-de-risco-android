@@ -3,6 +3,14 @@
     <!-- Nome do App -->
     <string name="app_name">Gestão de Risco</string>
 
+    <!-- Array para o Dashboard -->
+    <string-array name="dashboard_periods">
+        <item>Últimos 7 dias</item>
+        <item>Últimos 30 dias</item>
+        <item>Últimos 90 dias</item>
+        <item>Este ano</item>
+    </string-array>
+
     <!-- Geral -->
     <string name="email">E-mail</string>
     <string name="password">Senha</string>
@@ -28,6 +36,13 @@
     <string name="attachment_preview">Pré-visualização do anexo</string>
     <string name="risk_level_label">Nível de Risco</string>
     <string name="delete_risk">Excluir Risco</string>
+    <string name="impact_analysis_label">Análise de Impacto e Causas</string>
+    <string name="impact_analysis_hint">Explique o impacto, causas e articulação com o evento.</string>
+    <string name="mitigation_actions_label">Ações de Redução</string>
+    <string name="mitigation_actions_hint">Ações para redução de perdas e exemplos.</string>
+    <string name="validation_error_impact">A análise de impacto é obrigatória.</string>
+    <string name="validation_error_mitigation">As ações de redução são obrigatórias.</string>
+    <string name="content_desc_unsynced">Item não sincronizado com a nuvem</string>
 
     <!-- Dashboard -->
     <string name="overview_title">Visão Geral dos Riscos</string>
@@ -58,7 +73,7 @@
     <string name="channel_name">Notificações de Risco</string>
     <string name="channel_description">Canal para notificações sobre atualizações de riscos</string>
     <string name="channel_high_value_name">Alertas de Alto Valor</string>
-    <string name="channel_high_value_description">Notificações urgentes sobre perdas de alto valor financeiro.</string>
+    <string name="channel_high_value_description">Alertas táticos prioritários para o Grupo de Operações Especiais (GOE).</string>
 
     <!-- Tela de Registro de Ocorrência -->
     <string name="occurrence_registration_title">Novo Registro de Recuperação</string>
@@ -121,7 +136,7 @@
     <string name="type_professional">Profissional / Habitual</string>
     <string name="type_breach_trust">Abuso de Confiança (Interno/Prestador)</string>
     <string name="help_shoplifter_type_title">Tipos de Furtantes</string>
-    <string name="help_shoplifter_type_message"><b>Furtante Ocasional/Oportunista:</b> Geralmente um cliente regular que age por impulso ou oportunidade, sem planejamento prévio.\n\n<b>Furtante Profissional/Habitual:</b> Encara o furto como trabalho/profissão. Planeja ações e busca itens de alto valor para revenda.\n\n<b>Abuso de Confiança:</b> Funcionário ou prestador de serviço que se aproveita do acesso facilitado para subtrair bens.</string>
+    <string name="help_shoplifter_type_message"><![CDATA[<b>Furtante Ocasional/Oportunista:</b> Geralmente um cliente regular que age por impulso ou oportunidade, sem planejamento prévio.<br/><br/><b>Furtante Profissional/Habitual:</b> Encara o furto como trabalho/profissão. Planeja ações e busca itens de alto valor para revenda.<br/><br/><b>Abuso de Confiança:</b> Funcionário ou prestador de serviço que se aproveita do acesso facilitado para subtrair bens.]]></string>
     <string name="help_shoplifter_type_desc">Ajuda sobre perfis de furtantes</string>
 
     <!-- Atitudes Suspeitas -->
@@ -147,27 +162,20 @@
 
     <!-- Ajuda Fundada Suspeita -->
     <string name="help_fundada_suspeita_title">Fundada Suspeita (Art. 244 CPP)</string>
-    <string name="help_fundada_suspeita_message">"A busca pessoal independerá de mandado, no caso de prisão ou quando houver fundada suspeita de que a pessoa esteja na posse de arma proibida ou de objetos ou papéis que constituam corpo de delito, ou quando a medida for determinada no curso de busca domiciliar."\n\nDescreva os fatos objetivos que motivaram a abordagem.</string>
+    <string name="help_fundada_suspeita_message">\"A busca pessoal independerá de mandado, no caso de prisão ou quando houver fundada suspeita de que a pessoa esteja na posse de arma proibida ou de objetos ou papéis que constituam corpo de delito, ou quando a medida for determinada no curso de busca domiciliar.\"\n\nDescreva os fatos objetivos que motivaram a abordagem.</string>
     <string name="help_fundada_suspeita_desc">Ajuda sobre Fundada Suspeita</string>
 
     <!-- Configuração de E-mail -->
-    <string name="configure_email_title">E-mail do Coordenador</string>
+    <string name="configure_email_title">E-mail do Comandante</string>
     <string name="configure_email_message">Defina o e-mail padrão para envio dos relatórios CSV.</string>
     <string name="configure_email_hint">exemplo@empresa.com</string>
     <string name="configure_report_title">Configurar Relatório Automático</string>
     <string name="configure_report_day_label">Dia da Semana:</string>
     <string name="configure_report_time_label">Horário:</string>
     <string name="configure_report_saved">Configurações salvas e agendamento atualizado!</string>
-    
+
     <!-- Configurações Gerais -->
     <string name="store_type_label">Bandeira / Tipo de Loja</string>
-    <string-array name="store_types_array">
-        <item>Bahamas Mix</item>
-        <item>Bahamas Tradicional</item>
-        <item>Bahamas Express</item>
-        <item>Empório Bahamas</item>
-        <item>Espaço Vest Casa</item>
-    </string-array>
 
     <string name="settings_activity_title">Configurações</string>
     <string name="pref_enable_notifications">Habilitar Notificações</string>
@@ -181,45 +189,24 @@
     <string name="biometric_error_none_enrolled">Nenhuma biometria cadastrada.</string>
 
     <!-- Filtros do Dashboard -->
-    <string-array name="dashboard_periods">
-        <item>Todos</item>
-        <item>Este Mês</item>
-        <item>Mês Passado</item>
-        <item>Este Ano</item>
-        <item>Personalizado</item>
-    </string-array>
 
     <!-- Categorias de Produtos (Padronização para Análise de Dados) -->
-    <string-array name="product_categories">
-        <item>Selecione uma categoria</item>
-        <item>Hortifrúti</item>
-        <item>Açougue, Aves e Peixaria</item>
-        <item>Mercearia (Seca e Líquida)</item>
-        <item>Frios e Laticínios</item>
-        <item>Bebidas Alcoólicas (Alto Risco)</item>
-        <item>Eletrônicos e Eletroportáteis</item>
-        <item>Padaria e Confeitaria</item>
-        <item>Higiene e Beleza</item>
-        <item>Limpeza</item>
-        <item>Congelados</item>
-        <item>Utilidades Domésticas/Bazar</item>
-        <item>Outros</item>
-    </string-array>
+    
+    <!-- Branding & Estratégia (O Cérebro da Marca) -->
+    <string name="about_mission">Nossa missão é transformar incerteza em controle, dando às empresas o poder de prever e neutralizar riscos.</string>
+    <string name="about_vision">Ser a plataforma de gestão de risco mais confiável e inteligente da América Latina.</string>
+    <string name="about_slogan">Veja o risco antes que ele aconteça.</string>
+    <string name="about_values">Confiança • Inovação • Precisão • Proatividade</string>
+
+    <!-- Identidade da Equipe (GOE) -->
+    <string name="team_goe_label">Grupo de Operações Especiais</string>
+    <string name="team_goe_acronym">GOE</string>
 
     <!-- Dias da Semana para Configuração -->
-    <string-array name="days_of_week">
-        <item>Domingo</item>
-        <item>Segunda-feira</item>
-        <item>Terça-feira</item>
-        <item>Quarta-feira</item>
-        <item>Quinta-feira</item>
-        <item>Sexta-feira</item>
-        <item>Sábado</item>
-    </string-array>
 
     <!-- Tutorial / Showcase -->
     <string name="tutorial_welcome_title">Bem-vindo ao Gestão de Risco</string>
-    <string name="tutorial_welcome_desc">Este é o seu Dashboard. Aqui você acompanha os indicadores de perdas e riscos em tempo real.</string>
+    <string name="tutorial_welcome_desc">Transforme incerteza em controle. Acompanhe indicadores de perdas e riscos em tempo real com precisão.</string>
     <string name="tutorial_config_title">Configurações</string>
     <string name="tutorial_config_desc">Defina seu e-mail, notificações e horários de relatórios automáticos aqui.</string>
     <string name="tutorial_export_title">Exportar Relatórios</string>
@@ -243,11 +230,6 @@
     <string name="change_status_title">Alterar Status da Ocorrência</string>
 
     <!-- Status da Ocorrência -->
-    <string-array name="occurrence_status">
-        <item>Aberto</item>
-        <item>Em Investigação</item>
-        <item>Resolvido</item>
-    </string-array>
 
     <!-- Tela do Mapa Geográfico -->
     <string name="map_activity_title">Mapa de Risco Geográfico</string>
@@ -261,6 +243,13 @@
     <string name="csv_header_value">Valor Estimado (R$)</string>
     <string name="csv_header_description">Descrição</string>
     <string name="csv_header_response_time">Tempo de Resposta</string>
+    <!-- Novos Cabeçalhos para Análise de Contexto -->
+    <string name="csv_header_market_context">Contexto de Mercado</string>
+    <string name="csv_header_inflation_index">Índice Inflação (IPCA)</string>
+    <string name="csv_header_unemployment_rate">Taxa Desemprego (%)</string>
+    <string name="btn_enrich_report">Gerar Relatório com Contexto</string>
+    <string name="fetching_market_data">Buscando dados de mercado...</string>
+    <string name="market_data_error">Falha ao obter contexto. Gerando relatório padrão.</string>
     <string name="shoplifter_chart_title">Distribuição por Perfil de Furtante</string>
     <string name="evolution_chart_title">Evolução Diária de Furtos</string>
     <string name="heatmap_label">Visualizar Mapa de Calor</string>
@@ -272,10 +261,97 @@
     <string name="report_title">RELATÓRIO TÉCNICO DE OCORRÊNCIAS</string>
     <string name="report_subtitle">Análise de Riscos e Perdas</string>
     <string name="report_city_year">Juiz de Fora, 2024</string>
+    <string name="report_generated_at">Data de Emissão:</string>
+    <string name="report_confidentiality">CONFIDENCIAL: Documento de uso restrito ao Grupo de Operações Especiais (GOE).</string>
+    <string name="report_security_warning">A divulgação não autorizada deste material está sujeita a sanções administrativas e legais.</string>
 
     <!-- Strings Faltantes -->
     <string name="risk_details_title">Detalhes do Risco</string>
     <string name="next">Próximo</string>
     <string name="previous">Anterior</string>
     <string name="lorem_ipsum">Lorem Ipsum</string>
+
+    <!-- Reconhecimento Tático -->
+    <string name="log_equipment">Equipamento</string>
+
+    <!-- Decodificador SITREP -->
+    <string name="decoder_title">Decodificador SITREP</string>
+    <string name="decoder_input_hint">Cole o relatório criptografado aqui...</string>
+    <string name="decoder_action">Descriptografar Relatório</string>
+    <string name="decoder_result_label">Relatório de Inteligência Decifrado:</string>
+    <string name="decoder_paste_clipboard">Colar da Área de Transferência</string>
+
+    <!-- Configurações de Pânico -->
+    <string name="pref_panic_sensitivity_title">Sensibilidade do Gatilho de Pânico</string>
+    <string name="pref_panic_sensitivity_summary">Ajuste a força necessária para ativar o protocolo de destruição ao agitar.</string>
+    <string-array name="panic_sensitivity_entries">
+        <item>Alta (Sensível)</item>
+        <item>Média (Padrão)</item>
+        <item>Baixa (Difícil)</item>
+    </string-array>
+    <string-array name="panic_sensitivity_values">
+        <item>1.8</item>
+        <item>2.7</item>
+        <item>3.5</item>
+    </string-array>
+
+    <!-- Gamificação: O Caminho do Estrategista -->
+    <string name="gamification_title">O Caminho do Estrategista</string>
+    <string name="gamification_profile_title">Perfil de Estrategista</string>
+    <string name="gamification_missions_title">Campanhas (Os 13 Capítulos)</string>
+    <string name="gamification_leaderboard_title">Conselho de Guerra</string>
+    <string name="gamification_achievements_title">Medalhas de Honra</string>
+    <string name="gamification_rank">Patente</string>
+    <string name="gamification_xp">Experiência de Prevenção (XP)</string>
+
+    <!-- Patentes -->
+    <string name="rank_recruit">Recruta de Risco</string>
+    <string name="rank_sentinel">Sentinela Vigilante</string>
+    <string name="rank_guardian">Guardião Tático</string>
+    <string name="rank_master">Mestre Estrategista</string>
+    <string name="rank_general">General Lendário</string>
+
+    <!-- Medalhas (Exemplos) -->
+    <string name="medal_first_prevention_title">Medalha da Vigilância</string>
+    <string name="medal_first_prevention_desc">Previna seu primeiro risco com sucesso.</string>
+    <string name="medal_full_report_title">Medalha da Precisão</string>
+    <string name="medal_full_report_desc">Preencha 10 relatórios com 100% dos campos.</string>
+    <string name="medal_fast_response_title">Medalha da Celeridade</string>
+    <string name="medal_fast_response_desc">Responda a um alerta de alto valor em menos de 5 minutos.</string>
+
+    <!-- Missões (Exemplos) -->
+    <string name="mission_chapter1_title">Capítulo I: Planejamento</string>
+    <string name="mission_chapter1_task1">Analise o Dashboard por 5 minutos consecutivos.</string>
+    <string name="mission_chapter3_title">Capítulo III: Ataque por Estratagema</string>
+    <string name="mission_chapter3_task1">Resolva um risco de severidade \'Alta\' sem perdas financeiras.</string>
+    <string name="mission_chapter10_title">Capítulo X: O Terreno</string>
+    <string name="mission_chapter10_task1">Registre ocorrências em 3 lojas diferentes.</string>
+
+    <!-- Comunidade -->
+    <string name="community_intelligence_title">Rede de Inteligência</string>
+    <string name="community_share_intel">Compartilhar Nova Tática</string>
+    <string name="community_intel_submission_hint">Descreva o novo modus operandi ou tática de risco observada...</string>
+    <string name="community_vote_useful">Inteligência Útil</string>
+
+    <!-- Menu -->
+    <string name="menu_strategist_path">Caminho do Estrategista</string>
+
+    <!-- Arsenal/Loja -->
+    <string name="arsenal_title">Arsenal</string>
+    <string name="arsenal_unlock_theme">Desbloquear Tema</string>
+    <string name="arsenal_unlock_sound">Desbloquear Som de Notificação</string>
+    <string name="arsenal_insufficient_xp">XP insuficiente.</string>
+
+    <!-- Feed Gemini -->
+    <string name="gemini_feed_url">https://developers.google.com/feeds/gemini-code-assist-free-release-notes.xml</string>
+
+    <!-- Release Notes 3.2.0 -->
+    <string name="release_version_current">Versão 3.2.0</string>
+    <string name="release_banner_title">Nova IA de Predição</string>
+    <string name="release_banner_desc">Nosso algoritmo agora prevê riscos com 30 minutos de antecedência usando padrões históricos.</string>
+    <string name="section_new">Novidades</string>
+    <string name="section_improvements">Melhorias</string>
+    <string name="section_fixes">Correções</string>
+    <string name="section_security">Segurança</string>
+    <string name="btn_version_history">Ver Histórico de Versões</string>
 </resources>

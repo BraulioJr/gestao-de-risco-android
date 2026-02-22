@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:keepScreenOn="true"
+    tools:context=".view.ReconActivity">
+
+    <!-- Header Tático -->
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:letterSpacing="0.15"
+        android:text="@string/recon_title"
+        android:textColor="@color/status_danger"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Log de Eventos (Console) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvReconLog"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:background="#111111"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/gridActions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeader" />
+
+    <!-- Botões de Ação Rápida -->
+    <GridLayout
+        android:id="@+id/gridActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:columnCount="2"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnStealth"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btnLogMovement"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="@string/recon_log_movement"
+            android:textColor="@color/status_warning"
+            app:strokeColor="@color/status_warning" />
+
+        <Button
+            android:id="@+id/btnLogTarget"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="@string/recon_log_target"
+            android:textColor="@color/status_danger"
+            app:strokeColor="@color/status_danger" />
+
+        <Button
+            android:id="@+id/btnLogRisk"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="@string/recon_log_risk"
+            android:textColor="@color/white"
+            app:strokeColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnLogAsset"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="@string/recon_log_asset"
+            android:textColor="@color/status_success"
+            app:strokeColor="@color/status_success" />
+
+        <Button
+            android:id="@+id/btnRequestQrf"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="@string/recon_request_qrf"
+            android:textColor="#FF4444"
+            app:strokeColor="#FF4444" />
+
+    </GridLayout>
+
+    <!-- Botão Câmera Tática -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/text_primary"
+        android:src="@android:drawable/ic_menu_camera"
+        app:tint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btnStealth"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Botão Modo Furtivo -->
+    <Button
+        android:id="@+id/btnStealth"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/recon_stealth_mode"
+        android:textColor="@color/text_secondary"
+        app:icon="@drawable/ic_shield_graph"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Overlay Furtivo (Inicialmente Invisível) -->
+    <View
+        android:id="@+id/viewStealthOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
