@@ -1,11 +1,11 @@
 plugins {
 
 	id("com.android.application")
-	alias(libs.plugins.kotlin.android)
+	id("org.jetbrains.kotlin.android")
 	alias(libs.plugins.hilt)
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.google.gms.services)
-	alias(libs.plugins.kotlin.parcelize)
+	id("kotlin-parcelize")
 }
 
 fun getVersionCodeFromGit(): Int {
