@@ -1,7 +1,5 @@
 plugins {
 
-	id("com.android.application")
-	id("org.jetbrains.kotlin.android")
 	alias(libs.plugins.android.application)
 	alias(libs.plugins.kotlin.android)
 	id("com.google.dagger.hilt.android")
@@ -36,7 +34,6 @@ android {
 		versionName = "1.0"
 
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-		multiDexEnabled = true
 	}
 
 	signingConfigs {
