@@ -1,0 +1,4 @@
+app/build.gradle.kts
+app/generate_changelog.main.kts
+*.kt
+*.kts
