@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1080dp"
+    android:height="1920dp"
+    android:viewportWidth="1080"
+    android:viewportHeight="1920">
+
+    <!-- Cantoneiras Táticas (Verde Neon) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#00FF00"
+        android:strokeWidth="4"
+        android:pathData="M50,200 L50,50 L200,50 M880,50 L1030,50 L1030,200 M50,1720 L50,1870 L200,1870 M880,1870 L1030,1870 L1030,1720"/>
+
+    <!-- Cruz de Mira Central -->
+    <group
+        android:name="crosshair_group"
+        android:pivotX="540"
+        android:pivotY="960">
+        <path
+            android:fillColor="#00000000"
+            android:strokeColor="#00FF00"
+            android:strokeWidth="2"
+            android:pathData="M520,960 L560,960 M540,940 L540,980"/>
+    </group>
+</vector>

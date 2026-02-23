@@ -38,6 +38,10 @@ O diferencial competitivo do sistema. Utiliza um modelo **TensorFlow Lite** on-d
 
 ### Outros Recursos
 *   **Modo Offline-First:** O aplicativo é 100% funcional sem conexão com a internet. As ocorrências são salvas em um banco de dados local (Room) e sincronizadas automaticamente com o Firestore quando a rede está disponível.
+*   **Inteligência Visual (ML Kit):**
+    *   **Reconhecimento em Campo:** Identificação automática de objetos e padrões em fotos de evidências.
+    *   **Leitura de Documentos (OCR):** Extração instantânea de texto de notas fiscais e documentos de identidade, agilizando o registro.
+*   **Edge AI Adaptativa:** Modelos que aprendem com padrões locais da loja e recebem atualizações dinâmicas via Firebase, evoluindo sem necessidade de atualizar o app.
 *   **Dashboard Analítico Avançado:** Uma central de inteligência visual com múltiplos gráficos para análise de dados:
     *   **Mancha Criminal (Bubble Chart):** Identifica "hotspots" cruzando Horário, Categoria de Produto e Frequência de furtos.
     *   **Análise Econômica:** Gráficos de barras que quantificam o prejuízo financeiro por loja.
@@ -45,17 +49,19 @@ O diferencial competitivo do sistema. Utiliza um modelo **TensorFlow Lite** on-d
     *   **Correlação de Risco:** Gráfico de dispersão para analisar a relação entre o horário e o valor dos incidentes.
 *   **Gestão de Casos (Case Management):** Acompanha o ciclo de vida de cada ocorrência com status (`Aberto`, `Em Investigação`, `Resolvido`), permitindo um gerenciamento ativo dos incidentes.
 *   **Inteligência Tática (SITREP):** Implementação do protocolo militar **SALUTE** (Tamanho, Atividade, Local, Unidade, Tempo, Equipamento) para geração instantânea de relatórios de situação. Permite que agentes em campo enviem inteligência estruturada e criptografada com um único gesto ("Gatilho Tático").
+*   **Visualização Tática (Drone Recon):** Interface de mapa imersiva que utiliza a API do Google Maps em modo satélite com inclinação (tilt) e overlay tático (HUD) para simular a visão de um drone de vigilância, permitindo análise de terreno e identificação de rotas de fuga.
 *   **Cofre de Evidências (Evidence Vault):** Fotos capturadas em modo tático são movidas automaticamente para um armazenamento interno isolado (`.secure_evidence_vault`), ficando invisíveis na galeria pública do Android.
 *   **Relatórios Automatizados:** Um `Worker` agendado envia relatórios semanais em formato CSV para o e-mail do Comandante de PP.
+*   **Cercas Virtuais (GeoFencing):** Criação de perímetros virtuais para gerar alertas automáticos quando dispositivos monitorados entram ou saem de áreas designadas, aumentando a segurança patrimonial.
 *   **Exportação de Dados Detalhada:** Permite a exportação de dados brutos e análises econômicas para CSV, facilitando a integração com ferramentas externas como Power BI, Tableau ou Excel.
-*   **Segurança Robusta:** Protege o acesso a funcionalidades sensíveis (configurações, exportação) com **autenticação biométrica**.
+*   **Segurança Robusta:** Protege o acesso a funcionalidades sensíveis com **autenticação biométrica**. Implementa **EncryptedSharedPreferences** e **SQLCipher** (Room criptografado) para dados em repouso, gestão de chaves via **Android Keystore**, além de **Certificate Pinning** e **Play Integrity API** para blindagem contra ataques.
 *   **Notificações em Tempo Real:** Utiliza **Firebase Cloud Messaging (FCM)** para enviar alertas push sobre ocorrências de alto valor.
 
 ---
 
 ## 🎨 Experiência Distintiva (UX)
 
-O Gestão de Risco não é apenas uma ferramenta de registro, é uma extensão dos sentidos da equipe de segurança. Projetamos microinterações que reforçam a identidade tática:
+O Gestão de Risco não é apenas uma ferramenta de registro, é uma extensão dos sentidos da equipe de prevenção de perdas e furtos. Projetamos microinterações que reforçam a identidade tática:
 
 *   🔴 **Pulso Crítico:** A interface emite um pulso visual vermelho sutil ao registrar riscos de alta severidade, confirmando a urgência.
 *   🔊 **Assinatura Sonora:** Notificações utilizam sons de "blip" de sonar e cliques de rádio, reforçando a atmosfera de vigilância e diferenciando-se de apps comuns.
@@ -121,12 +127,16 @@ O projeto foi desenhado para atender aos rigorosos requisitos de uma equipe mult
 *   **UI:** Android Views com Material Design 3
 *   **Programação Assíncrona:** Kotlin Coroutines e Flow
 *   **Banco de Dados Local:** Room (para operação offline)
-*   **Sincronização Remota:** Firebase Firestore
+*   **Sincronização Remota:** Firebase Firestore (com estratégia NetworkBoundResource e controle de conflitos)
 *   **Tarefas em Segundo Plano:** WorkManager
 *   **Gráficos:** MPAndroidChart
-*   **Machine Learning:** TensorFlow Lite
+*   **Geolocalização:** Google Maps SDK, GeoFencing API (Mapbox SDK em avaliação)
+*   **Machine Learning:** TensorFlow Lite + Google ML Kit (Vision/OCR) + Firebase ML
 *   **Notificações Push:** Firebase Cloud Messaging (FCM)
-*   **Segurança:** BiometricPrompt API
+*   **Observabilidade:** Firebase Crashlytics, Performance Monitoring e Logging estruturado (Timber)
+*   **Configuração Dinâmica:** Firebase Remote Config para ativação de features (Feature Flags)
+*   **Segurança:** BiometricPrompt, Android Keystore, EncryptedSharedPreferences, SQLCipher, Play Integrity API, Certificate Pinning
+*   **Qualidade e DevOps:** Pipeline de CI/CD com GitHub Actions, testes automatizados (JUnit, Espresso, MockK) e análise estática (Detekt, Ktlint).
 
 ---
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/bg_drone_overlay">
+    <target
+        android:name="crosshair_group"
+        android:animation="@animator/drone_spin" />
+</animated-vector>

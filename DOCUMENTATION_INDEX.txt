@@ -27,7 +27,7 @@ REFERÊNCIA TÉCNICA:
 DOCUMENTOS DE ENGENHARIA:
 ├─ README_TECNICO.md ....................... Detalhes de Implementação
 ├─ DATABASE_MODEL.md ....................... Modelo de Banco de Dados (Room)
-└─ XP_MATHEMATICAL_MODEL.md ................ Modelo Matemático de XP
+└─ GAMIFICATION_BLUEPRINT.md ............... Blueprint completo do Game Design
 ├─ VERSIONING_STRATEGY.md .................. Estratégia de Versionamento e Release
 ├─ ROADMAP_TECNICO.md ...................... Roadmap de 12 Meses (IA & SaaS)
 
@@ -155,7 +155,7 @@ FINAL_STATUS.txt ..................... 15 minutos (técnico)
 BUILD_SUMMARY.md ..................... 5 minutos (resumo técnico)
 README_TECNICO.md .................... 20 minutos (detalhes de engenharia)
 DATABASE_MODEL.md .................... 10 minutos (modelo de dados)
-XP_MATHEMATICAL_MODEL.md ............. 5 minutos (lógica de gamificação)
+GAMIFICATION_BLUEPRINT.md ............ 10 minutos (design completo do jogo)
 ROADMAP_TECNICO.md ................... 10 minutos (planejamento estratégico)
 FINANCIAL_MODEL.md ................... 10 minutos (projeções financeiras)
 .github/copilot-instructions.md .... 30 minutos (arquitetura completa)

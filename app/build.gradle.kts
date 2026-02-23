@@ -70,36 +70,35 @@ android {
 }
 
 dependencies {
-	testImplementation("junit:junit:4.13.2")
-	testImplementation("androidx.test.ext:junit:1.1.5")
-	testImplementation("androidx.test:core-ktx:1.5.0")
-	testImplementation("org.robolectric:robolectric:4.11.1")
-	testImplementation("androidx.room:room-testing:2.6.1")
-	testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-
-	implementation(libs.core.splashscreen)
+	// Core & UI
 	implementation(libs.core.ktx)
+	implementation(libs.core.splashscreen)
 	implementation(libs.appcompat)
 	implementation(libs.material)
 	implementation(libs.constraintlayout)
-	implementation(libs.navigation.fragment.ktx)
-	implementation(libs.navigation.ui.ktx)
 	implementation(libs.recyclerview)
 	implementation(libs.activity.ktx)
 
+	// Lifecycle & Navigation
 	implementation(libs.lifecycle.viewmodel.ktx)
 	implementation(libs.lifecycle.livedata.ktx)
+	implementation(libs.navigation.fragment.ktx)
+	implementation(libs.navigation.ui.ktx)
 
-	implementation(libs.hilt.android)
-	implementation(libs.mpandroidchart)
-	ksp(libs.hilt.compiler)
-
-	implementation(libs.preference.ktx)
-
+	// Coroutines
 	implementation(libs.kotlinx.coroutines.core)
 	implementation(libs.kotlinx.coroutines.android)
 	implementation(libs.kotlinx.coroutines.play.services)
 
+	// Dependency Injection
+	implementation(libs.hilt.android)
+	ksp(libs.hilt.compiler)
+
+	// Networking
+	implementation(libs.retrofit)
+	implementation(libs.converter.gson)
+
+	// Firebase
 	implementation(platform(libs.firebase.bom))
 	implementation(libs.firebase.auth.ktx)
 	implementation(libs.firebase.firestore.ktx)
@@ -107,13 +106,21 @@ dependencies {
 	implementation(libs.firebase.storage.ktx)
 	implementation(libs.firebase.functions.ktx)
 
-	implementation(libs.retrofit)
-	implementation(libs.converter.gson)
+	// Utilities
+	implementation(libs.mpandroidchart)
+	implementation(libs.preference.ktx)
 
+	// Unit Testing
+	testImplementation(libs.junit)
+	testImplementation(libs.androidx.test.core.ktx)
+	testImplementation(libs.androidx.test.ext.junit)
+	testImplementation(libs.robolectric)
+	testImplementation(libs.androidx.room.testing)
+	testImplementation(libs.kotlinx.coroutines.test)
 	testImplementation(libs.mockk)
 	testImplementation(libs.turbine)
 
-
+	// Instrumented Testing
 	androidTestImplementation(libs.androidx.junit)
 	androidTestImplementation(libs.espresso.core)
 }

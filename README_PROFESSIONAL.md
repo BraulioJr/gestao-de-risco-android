@@ -56,7 +56,12 @@
 
 ### 🔮 Inteligência Artificial & Machine Learning
 - **Modelo TensorFlow Lite Embarcado** - Predições de risco em tempo real (on-device)
-- **Fallback Estatístico** - Garante funcionalidade mesmo sem modelo IA
+- **Google ML Kit Integration** - Visão computacional avançada:
+  - **OCR (Optical Character Recognition)** - Leitura automática de notas e documentos.
+  - **Image Labeling** - Classificação automática de evidências fotográficas.
+- **Edge AI Adaptativa** - Modelos locais que se refinam com padrões específicos da loja.
+- **Atualização Dinâmica** - Download de novos modelos `.tflite` via Firebase ML sem update de APK.
+- **Fallback Estatístico** - Garante funcionalidade mesmo sem modelo IA.
 - **Scoring de Risco** - Cada incidente recebe score de confiança e probabilidade
 - **Aprendizado Contínuo** - Dados alimentam retreinamento mensal do modelo
 
@@ -118,6 +123,10 @@ sequenceDiagram
 - **Panic Protocol** - Monitoramento de acelerômetro (Shake Detection) para destruição de emergência de dados sensíveis locais em caso de coação física.
 - **Criptografia de Dados Operacionais** - Logs de reconhecimento (`ReconLog`) são criptografados localmente com **AES-128** via `TacticalUtils` antes da persistência.
 - **Sanitização de Dados (Data Wiping)** - Implementação de sobrescrita de arquivos (Zeroing + Random) antes da deleção no `EvidenceVault`, mitigando recuperação forense de dados.
+- **Armazenamento Seguro** - Uso de **EncryptedSharedPreferences** para chaves leves e **SQLCipher** para criptografia total do banco de dados Room (256-bit AES).
+- **Gestão de Chaves** - Integração com **Android Keystore System** para proteção de chaves criptográficas em hardware (TEE/StrongBox).
+- **Network Security** - **Certificate Pinning** via OkHttp para prevenir interceptação de tráfego (ataques Man-in-the-Middle).
+- **Integridade do App** - Validação via **Play Integrity API** para garantir que o binário não foi adulterado e o ambiente é confiável.
 
 ```mermaid
 sequenceDiagram
@@ -150,7 +159,9 @@ sequenceDiagram
 ### 🔄 Sincronização Offline-First
 - **Room Local Database** - Banco SQLite com migrations automáticas
 - **Background Sync (WorkManager)** - Sincronização a cada 1 hora quando conectado
-- **Conflict Resolution** - Inteligência para resolver conflitos Room ↔ Firestore
+- **NetworkBoundResource** - Padrão de arquitetura para orquestrar cache local e dados remotos
+- **Sincronização Incremental** - Apenas dados modificados desde o último sync são transmitidos
+- **Conflict Resolution** - Estratégia *Last-Write-Wins* ou *Smart Merge* para resolver conflitos Room ↔ Firestore
 - **Queue de Upload** - Imagens enfileiradas para Firebase Storage com retry automático
 - **Indicador de Status** - Ícone visual mostra sync status em tempo real
 
@@ -171,6 +182,8 @@ sequenceDiagram
 - **Google Maps Integration** - Visualização de hotspots geográficos
 - **Clustering** - Agrupa incidentes por região automaticamente
 - **Heat Maps** - Densidade visual de risco por área
+- **Drone Recon View** - Modo de visualização satélite com inclinação e HUD tático para imersão operacional.
+- **GeoFencing Alerts** - Alertas automáticos quando dispositivos monitorados entram ou saem de perímetros virtuais pré-definidos.
 
 ### 🎲 Gamificação (Engine Tática)
 Inspirado nos princípios de "A Arte da Guerra" de Sun Tzu, o Gestão de Risco transcende a ferramenta de trabalho para se tornar uma plataforma de engajamento e maestria.
@@ -219,7 +232,7 @@ MVVM + Repository Pattern + Offline-First + Tenant-Aware SaaS
 ### Princípios Arquiteturais
 
 1. **Single Source of Truth** - Room é primária; Firestore é backup
-2. **Unidirectional Data Flow** - UI → ViewModel → Repository → Data
+2. **Unidirectional Data Flow** - UI → ViewModel → UseCase → Repository → Data
 3. **Separation of Concerns** - Cada layer tem responsabilidade clara
 4. **Dependency Injection** - Hilt para inversão de controle
 5. **Reactive Programming** - Coroutines + Flow para async
@@ -241,6 +254,9 @@ MVVM + Repository Pattern + Offline-First + Tenant-Aware SaaS
   - 📦 **Cloud Storage** - Upload de evidências (fotos)
   - 📨 **Cloud Messaging (FCM)** - Push notifications
   - 📊 **Analytics** - Tracking de eventos
+  - 💥 **Crashlytics** - Monitoramento de estabilidade e crashes
+  - 🚀 **Performance Monitoring** - Métricas de latência e startup
+  - 🎛️ **Remote Config** - Feature flags e atualizações dinâmicas
 - **Room Database** - SQLite type-safe
 - **WorkManager** - Background jobs (sync 1h)
 
@@ -248,11 +264,17 @@ MVVM + Repository Pattern + Offline-First + Tenant-Aware SaaS
 - **Material Design 3** - Design system moderno
 - **ViewBinding** - Type-safe view access
 - **MPAndroidChart** - Gráficos profissionais
-- **Google Maps** - Geolocalização
+
+### Geolocalização
+- **Google Maps SDK** - Visualização, clustering, heatmaps.
+- **GeoFencing API** - Alertas baseados em localização.
+- **Mapbox SDK** - Em avaliação para customização avançada de HUD.
 
 ### Machine Learning
 - **TensorFlow Lite** - On-device AI inference
 - **Quantized Models** - <5MB para tamanho mínimo APK
+- **Google ML Kit** - Vision API (OCR, Image Labeling)
+- **Firebase ML** - Model Distribution (Over-the-Air updates)
 
 ### Architecture & DI
 - **Hilt** - Dependency injection limpo
@@ -269,12 +291,31 @@ MVVM + Repository Pattern + Offline-First + Tenant-Aware SaaS
 - **Turbine** - Flow testing
 - **Robolectric** - Android unit tests
 - **JUnit 4** - Test framework
+- **Espresso** - UI testing framework
 
 ### Build & Tooling
 - **Gradle 8.13** - Build automation
 - **Version Catalog** - Centralized dependency management
 - **Proguard/R8** - Code minification (release)
 - **MultiDex** - Suporte para 65k+ métodos
+
+### CI/CD & Quality
+- **GitHub Actions** - Automated build & test pipeline
+- **Firebase App Distribution** - Beta testing delivery
+- **Detekt** - Static code analysis for Kotlin
+- **Ktlint** - Kotlin code style formatter
+
+### Security
+- **EncryptedSharedPreferences** - Secure key-value storage
+- **SQLCipher** - Database encryption (Room)
+- **Android Keystore** - Hardware-backed key storage
+- **Play Integrity API** - Anti-tampering & anti-fraud
+- **OkHttp Certificate Pinner** - Network security
+
+### Observabilidade
+- **Timber** - Logging estruturado e limpo
+- **Firebase Crashlytics** - Reporte de erros em tempo real
+- **Firebase Performance** - Monitoramento de rede e UI
 
 ---
 
@@ -859,6 +900,7 @@ adb shell dumpsys package com.example...  # Info do package
 - [ ] Unit tests (80%+ coverage)
 - [ ] Integration tests
 - [ ] Performance testing
+- [ ] Avaliar Mapbox SDK para customização avançada de HUD e mapas
 - [ ] Offline sync validation
 - [ ] Security audit
 

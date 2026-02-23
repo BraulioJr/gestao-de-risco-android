@@ -303,6 +303,41 @@
     <string name="gamification_achievements_title">Medalhas de Honra</string>
     <string name="gamification_rank">Patente</string>
     <string name="gamification_xp">Experiência de Prevenção (XP)</string>
+    <string name="gamification_honor">Honra Operacional</string>
+    <string name="gamification_bonus_tactical">Bônus Tático (Horário Crítico)</string>
+    <string name="gamification_bonus_precision">Bônus de Precisão (Intel Completa)</string>
+    <string name="gamification_streak_active">Sequência Ativa: %1$d dias</string>
+    <string name="gamification_level_up">Promoção de Campo!</string>
+    <string name="gamification_xp_gained">+%1$d XP</string>
+    <string name="gamification_multiplier_applied">x%1$s Multiplicador</string>
+
+    <!-- Investigação e Missões -->
+    <string name="investigation_case_title">Operação: %1$s</string>
+    <string name="investigation_progress_label">Progresso da Investigação</string>
+    <string name="investigation_mission_list">Missões Táticas</string>
+    <string name="mission_collect_cctv">Intel Visual (CFTV)</string>
+    <string name="mission_collect_witness">Coleta Testemunhal</string>
+    <string name="mission_map_route">Rastreio de Rota</string>
+    <string name="mission_secure_evidence">Preservação de Prova (Cofre)</string>
+    <string name="case_complexity_label">Nível de Ameaça</string>
+    <string name="case_complexity_low">Nível 1 (Simples)</string>
+    <string name="case_complexity_medium">Nível 2 (Intermediário)</string>
+    <string name="case_complexity_high">Nível 3 (Complexo)</string>
+    <string name="case_complexity_critical">Nível 4 (Crítico)</string>
+    <string name="case_complete_bonus">Bônus de Missão Cumprida</string>
+    <string name="evidence_quality_check">Qualidade da Evidência</string>
+    <string name="evidence_quality_high">Alta Resolução (Intel Confirmada)</string>
+    
+    <!-- Protocolo de Foco Tático -->
+    <string name="xp_diminishing_return_warning">Fadiga Operacional: XP reduzido para ocorrências de baixa complexidade.</string>
+    <string name="xp_high_complexity_bonus">Alvo de Alto Valor: Sem penalidade de XP.</string>
+    <string name="complexity_analysis_label">Análise de Complexidade (IA)</string>
+    <!-- Widget de Eficiência Tática -->
+    <string name="tactical_efficiency_title">Eficiência de XP</string>
+    <string name="tactical_status_optimal">Foco Tático (XP Máximo)</string>
+    <string name="tactical_status_routine">Modo de Rotina (XP Padrão)</string>
+    <string name="tactical_status_volume">Foco em Volume (XP Otimizado)</string>
+    <string name="tactical_efficiency_tip">Dica: Busque casos de maior complexidade para maximizar seus ganhos de XP.</string>
 
     <!-- Patentes -->
     <string name="rank_recruit">Recruta de Risco</string>
@@ -354,4 +389,28 @@
     <string name="section_fixes">Correções</string>
     <string name="section_security">Segurança</string>
     <string name="btn_version_history">Ver Histórico de Versões</string>
+
+    <!-- ML Kit & AI -->
+    <string name="ml_analyzing_image">Analisando imagem...</string>
+    <string name="ml_ocr_scanning">Lendo documento...</string>
+    <string name="ml_object_detected">Objeto detectado: %1$s</string>
+    <string name="ml_text_extracted">Texto extraído com sucesso</string>
+    <string name="ml_model_update">Atualizando inteligência artificial...</string>
+
+    <!-- Calculadora de ROI -->
+    <string name="roi_calculator_title">Calculadora de ROI</string>
+    <string name="roi_calculator_subtitle">Retorno sobre Investimento em Prevenção</string>
+    <string name="roi_hint_investment">Investimento Mensal (R$)</string>
+    <string name="roi_hint_previous_losses">Perdas Média Anterior (R$)</string>
+    <string name="roi_hint_current_losses">Perdas Atuais (R$)</string>
+    <string name="roi_action_calculate">Calcular Retorno</string>
+    <string name="roi_result_label">ROI Estimado</string>
+
+    <!-- ROI Avançado -->
+    <string name="roi_advanced_title">Análise Avançada de ROI</string>
+    <string name="roi_complexity_label">Por Complexidade</string>
+    <string name="roi_operator_label">Por Operador</string>
+    <string name="roi_predictive_label">Preditivo (IA)</string>
+    <string name="roi_efficiency_label">Ajustado por Eficiência</string>
+    <string name="roi_response_time_label">Tempo de Resposta Médio (min)</string>
 </resources>

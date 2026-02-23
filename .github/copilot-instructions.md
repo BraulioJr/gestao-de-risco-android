@@ -6,13 +6,15 @@ Este é um **aplicativo Android offline-first** desenhado como produto escaláve
 
 ## Architecture Overview
 
-**Pattern:** MVVM + Repository Pattern com Offline-First + **Tenant-Aware Design** (SaaS)
+**Pattern:** MVVM + Clean Architecture (UseCases) + Repository Pattern com Offline-First + **Tenant-Aware Design** (SaaS)
 
 - **UI Layer:** Android Views (Material Design 3) com ViewBinding; Activities/Fragments comunicam via ViewModels
 - **ViewModel Layer:** Gerencia estado da UI com LiveData/Flow; recupera de process death
+- **Domain Layer (UseCases):** Regras de negócio puras; orquestra chamadas aos repositórios
 - **Repository Layer:** Fonte única da verdade; coordena entre Room local e Firestore remoto
 - **Data Layer (Tenant-Aware):** Room DB é primária; synca com Firestore via `SyncWorker` a cada 1h; dados isolados por `clientId`/`tenantId`
 - **AI Prediction Layer:** TensorFlow Lite para predições em tempo real; fallback estatístico garantido
+- **Dependency Injection:** Hilt para gerenciamento de dependências e escopos
 - **Arquivos-Chave:**
   - `data/local/AppDatabase.kt` — Definição Room; migrations automáticas; tabelas com filtros por tenant
   - `data/local/OcorrenciaDao.kt` — CRUD com escopo de tenant (`WHERE clientId = ?`)
@@ -20,6 +22,7 @@ Este é um **aplicativo Android offline-first** desenhado como produto escaláve
   - `worker/SyncWorker.kt` — Sync background (imagens → Firebase Storage, dados → Firestore) com isolamento de tenant
   - `model/Ocorrencia.kt` — Modelo de domínio (puro); sempre inclui `clientId` para isolamento
   - `viewmodel/RiskViewModel.kt` — Predições e lógica de IA expostas para UI
+  - `domain/usecase/PredictRiskUseCase.kt` — Encapsula lógica de predição
 
 ## Considerações para SaaS & Multi-Tenant
 
@@ -40,8 +43,17 @@ Este é um **aplicativo Android offline-first** desenhado como produto escaláve
 
 1. **Record locally first** — All incidents saved to Room immediately (no network required)
 2. **Background sync via WorkManager** — `SyncWorker` runs every 1 hour when network available
-3. **Sync pattern:** Mark records as unsynced in Room → upload attachments to Firebase Storage → push to Firestore → mark as synced
-4. **Fallbacks:** If image upload fails, sync text data anyway; if sync fails, retry next cycle
+3. **NetworkBoundResource Pattern:**
+   - Flow: Local DB -> UI
+   - Fetch: API call
+   - Save: API result -> Local DB
+   - Re-emit: Updated Local DB -> UI
+4. **Conflict Resolution:**
+   - **Last-Write-Wins:** Server timestamp vs Local timestamp.
+   - **Smart Merge:** Merge non-conflicting fields.
+5. **Incremental Sync:** Send `lastSyncTimestamp` to API; receive only deltas.
+6. **Sync pattern:** Mark records as unsynced in Room → upload attachments to Firebase Storage → push to Firestore → mark as synced
+7. **Fallbacks:** If image upload fails, sync text data anyway; if sync fails, retry next cycle
 
 ## Build & Run
 
@@ -65,10 +77,21 @@ Este é um **aplicativo Android offline-first** desenhado como produto escaláve
 
 ## Testing
 
-- **Unit tests:** Mockk + Turbine (Flow testing); use `MainCoroutineRule` for coroutine tests
-- **Instrumented tests:** Robolectric for Android components; Room in-memory DB for DAO tests
+- **Unit tests:** JUnit + Mockk + Turbine (Flow testing); use `MainCoroutineRule` for coroutine tests
+- **UI Tests:** Espresso for instrumentation tests
+- **Static Analysis:** Detekt and Ktlint for code style and smell detection
+- **CI/CD:** GitHub Actions for automated testing; Firebase App Distribution for QA builds
 - **Test files:** `app/src/test/` and `app/src/androidTest/`
 - **Example:** `MainViewModelTest.kt`, `OcorrenciasRepositoryTest.kt`, `WordGeneratorTest.kt`
+
+## Observability & Monitoring
+
+- **Crash Reporting:** Firebase Crashlytics for fatal/non-fatal errors.
+- **Performance:** Firebase Performance Monitoring for network latency and app startup time.
+- **Logging:** Use `Timber` for structured logging.
+  - Debug: Verbose logs.
+  - Release: Only warnings/errors (or send to Crashlytics).
+- **Feature Flags:** Use Firebase Remote Config to enable/disable features per tenant/client without app updates.
 
 ## Estrutura de Arquivos Detalhada
 
@@ -98,6 +121,11 @@ app/src/main/java/com/example/project_gestoderisco/
 │   ├── Risk.kt                          # Risk prediction model
 │   ├── UserProfile.kt                   # User info (synced to Firestore)
 │   └── LgpdDetails.kt                   # LGPD compliance metadata
+├── domain/
+│   ├── usecase/                         # Regras de negócio puras
+│   │   ├── PredictRiskUseCase.kt
+│   │   └── SyncDataUseCase.kt
+│   └── repository/                      # Interfaces de repositório (Clean Arch)
 ├── repository/
 │   ├── OcorrenciaRepository.kt          # Business logic; Room ↔ Firebase bridge
 │   ├── NotificationRepository.kt        # FCM & push notification handling
@@ -113,6 +141,10 @@ app/src/main/java/com/example/project_gestoderisco/
 │   ├── DashboardViewModel.kt            # Chart data aggregation
 │   ├── AuthViewModel.kt                 # Auth state
 │   └── *ViewModelFactory.kt             # Factory constructors (dependency injection)
+├── di/
+│   ├── AppModule.kt                     # Hilt modules (Singleton)
+│   ├── RepositoryModule.kt              # Binds/Provides repositories
+│   └── DatabaseModule.kt                # Room provider
 ├── view/ or *Activity.kt
 │   ├── MainActivity.kt                  # Home/navigation hub
 │   ├── LoginActivity.kt                 # Auth entry point
@@ -171,9 +203,14 @@ firebase.json                            # Firebase CLI config
 
 **ViewModel:**
 - Hold UI state in LiveData/Flow
-- Call repository suspend functions via coroutines
+- Call UseCases (Domain) suspend functions via coroutines
 - Emit state changes (sealed UiState classes)
 - Recover state on process death
+
+**Domain (UseCase):**
+- Encapsulate reusable business logic
+- Combine data from multiple repositories
+- Pure Kotlin (no Android dependencies ideally)
 
 **Repository:**
 - Query Room DAO (primary source)
@@ -284,8 +321,12 @@ val clientId = authRepository.currentUserClientId()
 
 ## IA & Machine Learning Strategy
 
-- **Treinamento:** Dados de múltiplos clientes (anonymizados) → modelo base em TensorFlow
-- **Deployment:** Modelo quantizado (`.tflite`) incluído em app; tamanho < 5MB para minimizar APK
+- **Stack:** TensorFlow Lite + Google ML Kit (Vision API).
+- **Treinamento:** Dados de múltiplos clientes (anonymizados) → modelo base em TensorFlow.
+- **Deployment:** Modelo quantizado (`.tflite`) incluído em app; atualizações via Firebase Model Downloader.
+- **Features:**
+  - **Predição de Risco:** `RiskViewModel` usa TFLite.
+  - **OCR/Vision:** Processamento de imagens de evidência para metadados automáticos.
 - **Predição Real-Time:** Quando novo `Ocorrencia` é criado, chamar `RiskViewModel.predict(ocorrencia)` para score imediato
 - **Feedback Loop:** Cada caso resolvido/investigado gera dados para retreinamento mensal do modelo
 - **Fallback:** Se modelo falha ou ausente, usar modelo estatístico em `Risk.kt` baseado em histórico de cliente
