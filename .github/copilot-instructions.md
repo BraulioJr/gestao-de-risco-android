@@ -196,29 +196,34 @@ firebase.json                            # Firebase CLI config
 ### Layer Responsibilities
 
 **Presentation (View/Activity/Fragment):**
+
 - Inflate layouts, bind ViewBinding
 - Observe LiveData/Flow from ViewModel
 - Pass user input to ViewModel
 - Do NOT touch repositories directly
 
 **ViewModel:**
+
 - Hold UI state in LiveData/Flow
 - Call UseCases (Domain) suspend functions via coroutines
 - Emit state changes (sealed UiState classes)
 - Recover state on process death
 
 **Domain (UseCase):**
+
 - Encapsulate reusable business logic
 - Combine data from multiple repositories
 - Pure Kotlin (no Android dependencies ideally)
 
 **Repository:**
+
 - Query Room DAO (primary source)
 - Handle Firebase operations with try-catch
 - Return Result<T> for success/failure
 - Map entities ↔ DTOs
 
 **Data Layer (Room):**
+
 - OcorrenciaEntity mirrored from Ocorrencia model
 - Queries: `getUnsyncedOcorrencias()`, `markAsSynced()`, etc.
 - Auto-migrations tracked in AppDatabase
@@ -279,6 +284,7 @@ firebase.json                            # Firebase CLI config
 ### Checklist para Nova Feature
 
 Ao implementar qualquer funcionalidade:
+
 - [ ] Incluir `clientId`/`tenantId` em TODOS os modelos novos?
 - [ ] Room queries têm filtro `WHERE clientId = ?`?
 - [ ] Firestore rules validam isolamento de tenant?
@@ -286,10 +292,8 @@ Ao implementar qualquer funcionalidade:
 - [ ] Testes cobrem múltiplos clientes (mocking `clientId`)?
 - [ ] Documentação menciona padrão de isolamento?
 
-
-
 - **Adicionar novo campo a incidentes:** Modificar `Ocorrencia.kt` → adicionar a `OcorrenciaEntity` → criar Room migration → atualizar sync em `SyncWorker` → garantir `clientId` em filtros
-- **Customizar modelo IA por cliente:** 
+- **Customizar modelo IA por cliente:**
   - Opção A: Múltiplos `.tflite` em assets (`risk_model_{clientId}.tflite`)
   - Opção B: Download dinâmico do modelo do Firestore durante login (mais escalável para SaaS)
   - Sempre incluir fallback estatístico em `Risk.kt`
@@ -346,6 +350,7 @@ val clientId = authRepository.currentUserClientId()
 6. **Go-Live:** Deploy em emuladores de cliente; monitoramento contínuo via Firebase Analytics
 
 **Version Management**
+
 - Min SDK: 24 | Target SDK: 34 | Current Build: 1.0
 - Incrementar versionCode a cada release de build
 - Breaking changes em DAO/Entity requerem Room migration automática (`autoMigrations` em AppDatabase)
@@ -360,6 +365,7 @@ val clientId = authRepository.currentUserClientId()
 ## Personas & Multidisciplinary Team Workflows
 
 ### 👨‍💼 **Coordenador de Prevenção de Perdas (PP) Sênior**
+
 - Acessa dashboard agnóstico do cliente para visualizar métricas de risco
 - Usa predições de IA para alocar recursos de forma preventiva (não reativa)
 - Recebe relatórios semanais automáticos com análises por loja/categoria
@@ -367,6 +373,7 @@ val clientId = authRepository.currentUserClientId()
 - **Para devs:** Requisitos de novo campo em `Ocorrencia` devem vir com aprovação dele
 
 ### 📈 **Analista de Dados Sênior**
+
 - Exporta dados CSV/Excel para análises avançadas em Power BI, Tableau
 - Identifica padrões e correlações que alimentam retreinamento do modelo de IA
 - Trabalha com dados limpos e filtrados por cliente (isolamento garantido)
@@ -374,6 +381,7 @@ val clientId = authRepository.currentUserClientId()
 - **Para devs:** Mudanças em `CsvGenerator.kt` e schema de `Ocorrencia` requerem aprovação
 
 ### 💻 **Desenvolvedor & Programador Sênior**
+
 - Mantém núcleo genérico; usa feature flags para customizações por cliente
 - Garante isolamento de tenant em todas as queries Room (`WHERE clientId = ?`)
 - Integra novos modelos TensorFlow Lite; testa fallbacks estatísticos
@@ -382,6 +390,7 @@ val clientId = authRepository.currentUserClientId()
 - **Responsabilidade crítica:** Garantir zero vazamento de dados entre clientes
 
 ### 💰 **Investidor Sênior (SaaS Vision)**
+
 - Vê modelo de receita recorrente (MRR) para cada cliente
 - Reconhece redução de perdas por loja como métrica de sucesso (ROI calculável)
 - Identifica oportunidade de upupsell: modelos IA customizados, relatórios premium, consulting
@@ -398,3 +407,12 @@ val clientId = authRepository.currentUserClientId()
 - When adding config fields: store in Firestore `clients/{clientId}/config/*`, not in app code
 - IA Model: Always export prediction confidence score alongside risk score
 - Multi-tenant audit: Search codebase for `WHERE`, `Query`, `.filter()` — ensure no cross-tenant leaks
+
+## Git & Commit Standards
+
+Follow **Conventional Commits** 1.0.0:
+
+- Format: `type(scope): description`
+- Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
+- Scopes: `auth`, `ui`, `data`, `core`, `gamification`, `roi`, `worker`
+- Example: `feat(gamification): implement xp calculation engine`

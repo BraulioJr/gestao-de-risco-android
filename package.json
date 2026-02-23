@@ -1,0 +1,34 @@
+{
+  "name": "project_gestaoderisco",
+  "version": "1.0.0",
+  "description": "[![Android](https://img.shields.io/badge/Android-14%2B-green?logo=android&logoColor=white)](https://developer.android.com/)\r [![Kotlin](https://img.shields.io/badge/Kotlin-1.9%2B-purple?logo=kotlin&logoColor=white)](https://kotlinlang.org/)\r [![Firebase](https://img.shields.io/badge/Firebase-Latest-orange?logo=firebase&logoColor=white)](https://firebase.google.com/)\r [![TensorFlow Lite](https://img.shields.io/badge/TensorFlow%20Lite-AI%2FML-red?logo=tensorflow&logoColor=white)](https://www.tensorflow.org/lite)\r [![Build](https://img.shields.io/badge/Build-Passing-brightgreen)](https://github.com/BraulioJr/gestao-de-risco-android)\r [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BraulioJr/gestao-de-risco-android.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/BraulioJr/gestao-de-risco-android/issues"
+  },
+  "homepage": "https://github.com/BraulioJr/gestao-de-risco-android#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1"
+  },
+  "lint-staged": {
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
+}

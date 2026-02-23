@@ -1,0 +1,17 @@
+#!/bin/sh
+# Git Hook para validar Conventional Commits
+# Instalação: cp config/git-hooks/commit-msg .git/hooks/commit-msg && chmod +x .git/hooks/commit-msg
+
+INPUT_FILE=$1
+START_LINE=`head -n1 $INPUT_FILE`
+
+# Regex para: tipo(escopo opcional): descrição
+PATTERN="^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-._]+\))?: .+$"
+
+if ! [[ "$START_LINE" =~ $PATTERN ]]; then
+  echo "❌ Erro de Commit: Mensagem fora do padrão Conventional Commits."
+  echo "   Padrão esperado: <tipo>(<escopo>): <descrição>"
+  echo "   Exemplo: feat(auth): add biometric login"
+  echo "   Tipos permitidos: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+  exit 1
+fi
