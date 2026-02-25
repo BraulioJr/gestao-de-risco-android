@@ -69,6 +69,20 @@
     <string name="settings_notifications_summary_on">Você receberá atualizações sobre riscos importantes.</string>
     <string name="settings_notifications_summary_off">Você não receberá nenhuma notificação do aplicativo.</string>
 
+    <!-- Configurações de Aparência -->
+    <string name="settings_category_appearance">Aparência</string>
+    <string name="pref_theme_title">Tema</string>
+    <string-array name="theme_entries">
+        <item>Padrão do Sistema</item>
+        <item>Claro</item>
+        <item>Escuro</item>
+    </string-array>
+    <string-array name="theme_values">
+        <item>system</item>
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
+
     <!-- Notificações -->
     <string name="channel_name">Notificações de Risco</string>
     <string name="channel_description">Canal para notificações sobre atualizações de riscos</string>
@@ -180,6 +194,13 @@
     <string name="settings_activity_title">Configurações</string>
     <string name="pref_enable_notifications">Habilitar Notificações</string>
     <string name="pref_high_value_only">Apenas Alertas de Alto Valor</string>
+    
+    <!-- Configurações de Feedback Sensorial -->
+    <string name="settings_category_feedback">Feedback Sensorial</string>
+    <string name="pref_sound_enabled_title">Efeitos Sonoros</string>
+    <string name="pref_sound_enabled_summary">Tocar sons de notificação e feedback tático.</string>
+    <string name="pref_vibration_enabled_title">Vibração</string>
+    <string name="pref_vibration_enabled_summary">Usar vibração para ações e alertas.</string>
 
     <!-- Biometria -->
     <string name="biometric_title">Autenticação Necessária</string>
@@ -413,4 +434,17 @@
     <string name="roi_predictive_label">Preditivo (IA)</string>
     <string name="roi_efficiency_label">Ajustado por Eficiência</string>
     <string name="roi_response_time_label">Tempo de Resposta Médio (min)</string>
+
+    <!-- Gamification Arena -->
+    <string name="stress_arena_title">Arena de Decisão</string>
+    <string name="stress_action_sell">Estancar Perda</string>
+    <string name="btn_achievements">Ver Conquistas</string>
+
+    <!-- Badges -->
+    <string name="achievements_title">Hangar de Conquistas</string>
+    <string name="badge_iron_hand_title">Mão de Ferro</string>
+    <string name="badge_iron_hand_desc">Reação de elite (menos de 3s) em alta volatilidade.</string>
+    <string name="badge_calculator_title">Calculista</string>
+    <string name="badge_calculator_desc">Realizou 10 simulações de stress para treinar.</string>
+    <string name="badge_locked">Bloqueado</string>
 </resources>

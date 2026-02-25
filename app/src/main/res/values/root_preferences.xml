@@ -1,0 +1,39 @@
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.preference.PreferenceCategory app:title="@string/settings_category_appearance">
+        <ListPreference
+            app:key="theme_preference"
+            app:title="@string/pref_theme_title"
+            app:entries="@array/theme_entries"
+            app:entryValues="@array/theme_values"
+            app:defaultValue="system" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory app:title="@string/settings_category_notifications">
+        <SwitchPreferenceCompat
+            app:key="notifications_enabled"
+            app:title="@string/pref_enable_notifications"
+            app:defaultValue="true"/>
+            
+        <SwitchPreferenceCompat
+            app:key="high_value_only"
+            app:title="@string/pref_high_value_only"
+            app:dependency="notifications_enabled"
+            app:defaultValue="false"/>
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory app:title="@string/settings_category_feedback">
+        <SwitchPreferenceCompat
+            app:key="sound_enabled"
+            app:title="@string/pref_sound_enabled_title"
+            app:summary="@string/pref_sound_enabled_summary"
+            app:defaultValue="true"/>
+
+        <SwitchPreferenceCompat
+            app:key="vibration_enabled"
+            app:title="@string/pref_vibration_enabled_title"
+            app:summary="@string/pref_vibration_enabled_summary"
+            app:defaultValue="true"/>
+    </androidx.preference.PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>
